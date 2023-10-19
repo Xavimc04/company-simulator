@@ -4,6 +4,7 @@ module.exports = {
     "./resources/**/*.js",
     "./resources/**/*.vue",
     "./app/Livewire/**/*.php",
+    './storage/framework/views/*.php',
   ],
   theme: {
     extend: {},
