@@ -15,6 +15,10 @@
         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
     @enderror
 
+    @error('email_taken')
+        <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+    @enderror
+
     <x-text-input 
         styles="mt-1 mb-3" 
         wireModel="email" 

@@ -2,6 +2,9 @@
 
 namespace App\Livewire\Sections\Guest\Auth;
 use Livewire\Component;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User; 
+use App\Models\Role; 
 
 class RegisterForm extends Component {
     public $name, $email, $password, $repeat; 
@@ -27,7 +30,24 @@ class RegisterForm extends Component {
     public function confirm() {
         $this->validate();
 
-        dd($this->name, $this->email, $this->password, $this->repeat); 
+        $email_taken = User::where('email', $this->email)->first(); 
+
+        if($email_taken) return $this->addError('email_taken', 'El email ya está en uso');
+
+        $role = Role::create([
+            'name' => "Administrador"
+        ]); 
+
+        if(!$role) return; 
+
+        User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'role_id' => $role->id,
+            'password' => Hash::make($this->password)
+        ]);
+
+        return redirect('/login');
     }
 
     public function render() {

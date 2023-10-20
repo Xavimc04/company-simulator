@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Guest; 
+use App\Http\Middleware\CanRegister; 
 
 // @ Shared
 Route::view('/', 'web.sections.shared.landing');
@@ -9,7 +10,7 @@ Route::view('/', 'web.sections.shared.landing');
 // @ Unauthorized
 Route::middleware([Guest::class])->group(function() {
     Route::view('/login', 'web.sections.guest.auth.login'); 
-    Route::view('/register', 'web.sections.guest.auth.register'); 
+    Route::view('/register', 'web.sections.guest.auth.register')->middleware(CanRegister::class); 
 });
 
 // @ Authorized
