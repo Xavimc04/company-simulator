@@ -36,7 +36,12 @@ class RegisterForm extends Component {
 
         $role = Role::create([
             'name' => "Administrador"
-        ]); 
+        ]);
+        
+        Role::insert([
+            ['name' => "Profesor"],
+            ['name' => "Estudiante"],
+        ]);
 
         if(!$role) return; 
 

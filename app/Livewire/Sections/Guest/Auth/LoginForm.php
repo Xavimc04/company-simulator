@@ -28,8 +28,12 @@ class LoginForm extends Component {
             'password' => $this->password
         ])) {
             session()->regenerate(); 
-            
-            return redirect('/dashboard');
+
+            if(Auth::user() && Auth::user()->role && Auth::user()->role->name == 'Administrador') {
+                return redirect('/teacher/dashboard');
+            }
+
+            return redirect('/student/dashboard');
         } else {
             return $this->addError('credentials', 'Las credenciales son incorrectas');
         }
