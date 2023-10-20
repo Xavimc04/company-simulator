@@ -14,7 +14,7 @@
         @livewireStyles
     </head>
 
-    <body>
+    <body class="h-screen w-screen">
         @yield('content')
 
         @livewireScripts

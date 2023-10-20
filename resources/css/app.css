@@ -15,3 +15,12 @@ html, body {
 input:focus {
     outline: none !important;
 }
+
+*::-webkit-scrollbar {
+    display: none;
+}
+  
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
