@@ -20,6 +20,7 @@ Route::middleware([Guest::class])->group(function() {
 Route::middleware('auth')->group(function() {
     Route::middleware(isTeacher::class)->group(function() {
         Route::view('/teacher/dashboard', 'web.sections.authorized.teacher.dashboard'); 
+        Route::view('/teacher/usuarios', 'web.sections.authorized.teacher.users'); 
     }); 
 
     Route::get('logout' , function() {
