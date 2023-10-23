@@ -1,16 +1,16 @@
 <main>
     {{-- @ Navigator --}}
     <section class="flex mt-5 items-center justify-between gap-5 flex-wrap">
-        <x-text-input
-            wireModel="userFilter" 
-            type="text" 
-            icon="person" 
-            placeholder="Nombre, e.g Xavier Morell" 
-        />
+        <div class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
+            <x-icon label="person" />
+        
+            <input wire:model="userFilter" wire:change="handleFilter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="Nombre, e.g Xavier Morell" />
+        </div>        
 
         <x-button wireClick="handleCreateModal" icon="add" content="Nuevo usuario" />
     </section>
 
+    {{-- @ User displaying --}}
     <div class="relative overflow-x-auto mt-10">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -34,7 +34,7 @@
                 </tr> 
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($this->users as $user)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $user['id'] }}
@@ -60,7 +60,7 @@
         </table>
 
         <div class="mt-5">
-            {{ $users->links() }}
+            {{ $this->users->links() }}
         </div>
     </div>
 

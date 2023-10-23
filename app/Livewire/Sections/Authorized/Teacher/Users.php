@@ -10,6 +10,7 @@ use App\Models\Role;
 class Users extends Component {
     use WithPagination;
 
+    protected $users; 
     public $userFilter, $creating, $roles, $deleting;
     public $name, $email, $password, $password_confirmation, $role;
 
@@ -79,9 +80,13 @@ class Users extends Component {
         $this->roles = Role::all();
     }
 
+    public function handleFilter() {
+        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10);
+    }
+
     public function render() { 
-        return view('livewire.sections.authorized.teacher.users', [
-            "users" => User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10)
-        ]);
+        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10);
+
+        return view('livewire.sections.authorized.teacher.users');
     }
 }
