@@ -2,6 +2,6 @@
 
 @section('body')
     <main>
-        Holaaa
+        
     </main>
 @endsection
