@@ -1,11 +1,11 @@
-<main>
+<main x-data>
     {{-- @ Navigator --}}
     <section class="flex mt-5 items-center justify-between gap-5 flex-wrap">
         <div class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
             <x-icon label="person" />
-        
-            <input wire:model="userFilter" wire:change="handleFilter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="Nombre, e.g Xavier Morell" />
-        </div>        
+
+            <input wire:model.live="userFilter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="Nombre, e.g Xavier Morell" />
+        </div>   
 
         <x-button wireClick="handleCreateModal" icon="add" content="Nuevo usuario" />
     </section>
@@ -33,22 +33,23 @@
                     <th scope="col" class="px-6 py-3" />
                 </tr> 
             </thead>
+
             <tbody>
                 @foreach ($this->users as $user)
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-ellipsis truncate">
                             {{ $user['id'] }}
                         </th>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user['name'] }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user['email'] }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user->role ? $user->role->name : null }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user['created_at'] }}
                         </td>
                         <td class="px-6 py-4 flex items-center justify-end">
@@ -64,8 +65,17 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener("livewire:load", function () {
+            Livewire.hook('element.updated', (el, component) => {
+                console.log('userFilter changed:', component.get('userFilter'));
+                
+            });
+        });
+    </script>    
+
     {{-- @ Delete --}}
-    <x-modal wire:model.defer="deleting" styles="flex flex-col gap-5">
+    <x-modal wire:model="deleting" styles="flex flex-col gap-5">
         <h2>¿Estás seguro de que quieres borrar este usuario?</h2>
 
         <div class="flex items-center gap-5 w-full"> 
@@ -75,7 +85,7 @@
     </x-modal>
 
     {{-- @ Create new user --}}
-    <x-modal wire:model.defer="creating" styles="flex flex-col gap-5">
+    <x-modal wire:model="creating" styles="flex flex-col gap-5">
         <x-labeled-input 
             label="Nombre de usuario" 
             wireModel="name" 

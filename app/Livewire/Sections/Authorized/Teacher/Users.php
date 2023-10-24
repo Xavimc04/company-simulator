@@ -11,7 +11,7 @@ class Users extends Component {
     use WithPagination;
 
     protected $users; 
-    public $userFilter, $creating, $roles, $deleting;
+    public $userFilter, $creating = false, $roles, $deleting = false;
     public $name, $email, $password, $password_confirmation, $role;
 
     protected $rules = [
@@ -72,18 +72,14 @@ class Users extends Component {
         ]);
     }
 
-    public function updatingSearch() {
-        $this->resetPage();
-    }
-
     public function mount() {
         $this->roles = Role::all();
     }
 
-    public function handleFilter() {
+    public function handleChange() {
         $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10);
     }
-
+    
     public function render() { 
         $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10);
 
