@@ -67,7 +67,10 @@ class RegisterForm extends Component {
         } else {
             $verification_code = VerificationCode::where('code', $this->verification_code)->first();
 
-            if(!$verification_code) return toastr()->error("El código de validación es incorrecto");
+            if(!$verification_code) {
+                toastr()->error("El código de validación es incorrecto");
+                return; 
+            }
 
             $role_id = $verification_code->role_id;
             $center_id = $verification_code->center_id;
@@ -75,16 +78,21 @@ class RegisterForm extends Component {
             $role = Role::find($role_id);
             $center = Center::find($center_id);
 
-            if(!$role || !$center) return toastr()->error("El rol o centro que fué asignado a esta invitación ya no existe");
+            if(!$role || !$center) {
+                toastr()->error("El rol o centro que fué asignado a esta invitación ya no existe");
+                return; 
+            }
 
             User::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'role_id' => $role->id,
                 'center_id' => $center->id,
-                'status' => 'pending',
+                'status' => $role->name == 'Profesor' ? 'active' : 'pending',
                 'password' => Hash::make($this->password)
             ]);
+
+            VerificationCode::where('code', $this->verification_code)->delete();
 
             return redirect('/login');
         }

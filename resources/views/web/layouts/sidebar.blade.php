@@ -26,9 +26,6 @@
             // Administrator
             [ "prefix" => "admin", "role" => "Administrador", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
             [ "prefix" => "admin", "role" => "Administrador", "icon" => "school", "label" => "Centros educativos", "route" => "centros" ],
-            [ "prefix" => "admin", "role" => "Administrador", "icon" => "person", "label" => "Gestión de usuarios", "route" => "usuarios" ],
-            [ "prefix" => "admin", "role" => "Administrador", "icon" => "qr_code", "label" => "Códigos de verificación", "route" => "usuarios" ],
-            [ "prefix" => "admin", "role" => "Administrador", "icon" => "other_admission", "label" => "Solicitudes pendientes", "route" => "solicitudes" ],
         ]
     ?>
 

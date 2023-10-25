@@ -63,7 +63,8 @@
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $center['email'] }}
                         </td>
-                        <td class="px-6 py-4 flex items-center justify-end">
+                        <td class="px-6 py-4 flex items-center justify-end gap-5">
+                            <span wire:click="inviteContact('{{ $center['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">mail</span>
                             <span wire:click="handleEditModal('{{ $center['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">edit</span>
                         </td>
                     </tr>
@@ -75,6 +76,19 @@
             {{ $this->centers->links() }}
         </div>
     </div>  
+
+    {{-- @ Inviting --}}
+    <x-modal wire:model="inviting" styles="flex flex-col gap-3">
+        <x-labeled-input 
+            label="Correo de contacto" 
+            wireModel="email" 
+            type="text"
+            icon="email"
+            placeholder="...@gmail.com"
+        />
+
+        <x-button wireClick="confirmInvite" styles="justify-center" content="Enviar invitación" />
+    </x-modal>
 
     {{-- @ Create new center --}}
     <x-modal wire:model="creating" styles="flex flex-col gap-3">

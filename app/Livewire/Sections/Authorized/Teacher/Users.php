@@ -3,7 +3,9 @@
 namespace App\Livewire\Sections\Authorized\Teacher;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
+use App\Models\VerificationCode; 
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role; 
 
@@ -11,35 +13,63 @@ class Users extends Component {
     use WithPagination;
 
     protected $users; 
-    public $userFilter, $creating = false, $roles, $deleting = false;
-    public $name, $email, $password, $password_confirmation, $role;
+    public $userFilter, $roles, $deleting = false;
+    public $email, $role, $inviting;
+
+    public function restoreParams() {
+        $this->reset(['email', 'role']);
+    }
+
+    public function inviteContact() {
+        $this->restoreParams(); 
+        $this->inviting = true; 
+    }
+
+    public function confirmInvite() {
+        if(!$this->email && strlen($this->email) <= 0) {
+            toastr()->error("La dirección de correo es inválida");
+            return; 
+        } 
+
+        if(!$this->role) return; 
+
+        $code = rand(100000, 999999); 
+
+        $wasSend = VerificationCode::create([
+            'center_id' => Auth::user()->center_id,
+            'role_id' => $this->role,
+            'code' => $code
+        ]);
+
+        if($wasSend) {
+            $this->inviting = false; 
+            toastr()->success("Se ha enviado un correo electrónico con el código de verificación");
+            return;
+        } else {
+            toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
+            return; 
+        }
+    }
 
     protected $rules = [
-        'name' => 'required|min:3',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:8|confirmed',
         'role' => 'required'
     ];
 
     protected $messages = [
-        'name.required' => 'El campo nombre es requerido',
-        'name.min' => 'El campo nombre debe tener al menos 3 caracteres',
         'email.required' => 'El campo email es requerido',
         'email.email' => 'El campo email debe ser un email válido',
         'email.unique' => 'El campo email ya está en uso',
-        'password.required' => 'El campo contraseña es requerido',
-        'password.min' => 'El campo contraseña debe tener al menos 8 caracteres',
-        'password.confirmed' => 'El campo contraseña no coincide con su confirmación',
         'role.required' => 'El campo rol es requerido'
     ];
 
-    public function restoreParams() {
-        $this->reset(['name', 'email', 'password', 'password_confirmation', 'role']);
-    }
+    public function accept($user_id) {
+        $user = User::find($user_id); 
+        $user->update([
+            'status' => 'active'
+        ]);
 
-    public function handleCreateModal() {
-        $this->restoreParams(); 
-        $this->creating = true; 
+        toastr()->success("El usuario ha sido aceptado");
     }
 
     public function delete($user_id) {
@@ -55,33 +85,12 @@ class Users extends Component {
         }
     }
 
-    public function createUser() {
-        $this->validate(); 
-
-        if(User::where('email', $this->email)->first()) {
-            return toastr()->error("El email ya está en uso");
-        }
-
-        $creating = false; 
-
-        User::create([
-            'name' => $this->name, 
-            'email' => $this->email, 
-            'password' => Hash::make($this->password), 
-            'role_id' => $this->role
-        ]);
-    }
-
     public function mount() {
-        $this->roles = Role::all();
-    }
-
-    public function handleChange() {
-        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10);
+        $this->roles = Role::where('name', '!=', 'Administrador')->get();
     }
     
     public function render() { 
-        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->paginate(10);
+        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->where('center_id', Auth::user()->center_id)->paginate(10);
 
         return view('livewire.sections.authorized.teacher.users');
     }

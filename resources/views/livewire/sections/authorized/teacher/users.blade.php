@@ -1,14 +1,14 @@
 <main x-data>
     {{-- @ Navigator --}}
     <section class="flex mt-5 items-center justify-between gap-5 flex-wrap">
-        CAMBIAR ESTE FILTRO A COMPONENTE TEXT INPUT
-        <div class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
-            <x-icon label="search" />
+        <x-text-input  
+            wireModel="userFilter" 
+            type="text" 
+            icon="search" 
+            placeholder="Buscar usuario..." 
+        />
 
-            <input wire:model.live="userFilter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="Nombre, e.g Xavier Morell" />
-        </div>   
-
-        <x-button wireClick="handleCreateModal" icon="add" content="Nuevo usuario" />
+        <x-button wireClick="inviteContact" icon="add" content="Enviar invitación" />
     </section>
 
     {{-- @ User displaying --}}
@@ -53,7 +53,11 @@
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user['created_at'] }}
                         </td>
-                        <td class="px-6 py-4 flex items-center justify-end">
+                        <td class="px-6 py-4 gap-5 flex items-center justify-end">
+                            @if ($user->status == 'pending')
+                                <span wire:click="accept('{{ $user['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">done</span>
+                            @endif
+
                             <span wire:click="delete('{{ $user['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">delete</span>
                         </td>
                     </tr>
@@ -76,57 +80,33 @@
         </div>
     </x-modal>
 
-    {{-- @ Create new user --}}
-    <x-modal wire:model="creating" styles="flex flex-col gap-5">
+    {{-- @ Inviting --}}
+    <x-modal wire:model="inviting" styles="flex flex-col gap-3">
         <x-labeled-input 
-            label="Nombre de usuario" 
-            wireModel="name" 
-            type="text"
-            icon="person"
-            placeholder="e.g Xavier Morell"
-        />
-
-        <x-labeled-input 
-            label="Dirección de correo" 
+            label="Correo de contacto" 
             wireModel="email" 
-            type="email"
+            type="text"
             icon="email"
             placeholder="...@gmail.com"
         />
 
-        <x-labeled-input 
-            label="Contraseña" 
-            wireModel="password" 
-            type="password"
-            icon="key"
-            placeholder="***"
-        />
-
-        <x-labeled-input 
-            label="Confirmación de contraseña" 
-            wireModel="password_confirmation" 
-            type="password"
-            icon="key"
-            placeholder="***"
-        />
-
         <?php 
-            $options = []; 
+            $options = [];
 
             foreach ($roles as $value) {
                 $options[] = [
-                    'value' => $value->id,
-                    'label' => $value->name
-                ];
+                    'value' => $value['id'],
+                    'label' => $value['name']
+                ]; 
             }
         ?>
 
         <x-selector 
             wireModel="role" 
-            label="Rol de Usuario"
+            label="Rol"
             :options="$options"
         />
-
-        <x-button wireClick="createUser" styles="justify-center" content="Confirmar alta" />
+        
+        <x-button wireClick="confirmInvite" styles="justify-center" content="Enviar invitación" />
     </x-modal>
 </main>

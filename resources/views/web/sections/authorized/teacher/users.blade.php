@@ -10,8 +10,6 @@
             <small>Gestiona de manera integral todos los usuarios de tu aplicativo</small>
         </section>
 
-        <h2>CAMBIAR ESTO PARA QUE LOS USERS SE ASIGNEN A MI CENTRO EDUCATIVO</h2>
-
         @livewire('sections.authorized.teacher.users')
     </main>
 @endsection

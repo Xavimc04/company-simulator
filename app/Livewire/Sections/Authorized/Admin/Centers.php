@@ -3,7 +3,10 @@
 namespace App\Livewire\Sections\Authorized\Admin;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Center; 
+use App\Models\Role; 
+use App\Models\VerificationCode; 
 
 class Centers extends Component {
     use WithPagination;
@@ -11,6 +14,7 @@ class Centers extends Component {
     protected $centers;
     
     public $centerFilter, $name, $email, $creating, $editing, $status;
+    public $inviting; 
 
     public function restoreForm() {
         $this->reset(['name', 'email', 'creating', 'status']);
@@ -49,6 +53,35 @@ class Centers extends Component {
         'email.unique' => 'El correo electrónico ya está en uso.',
         'status.required' => 'El estado es requerido.'
     ];
+
+    public function inviteContact($center_id) {
+        $this->restoreForm(); 
+        $this->inviting = $center_id; 
+    }
+
+    public function confirmInvite() {
+        if(!$this->email && strlen($this->email) <= 0) {
+            toastr()->error("La dirección de correo es inválida");
+            return; 
+        } 
+
+        $code = rand(100000, 999999); 
+
+        $wasSend = VerificationCode::create([
+            'center_id' => $this->inviting,
+            'role_id' => Role::where('name', 'Profesor')->first()->id,
+            'code' => $code
+        ]);
+
+        if($wasSend) {
+            $this->inviting = false; 
+            toastr()->success("Se ha enviado un correo electrónico con el código de verificación");
+            return;
+        } else {
+            toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
+            return; 
+        }
+    }
 
     public function edit() {
         if(!$this->status) {
