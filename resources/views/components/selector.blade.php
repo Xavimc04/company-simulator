@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-2">
-    <label class="text-sm text-gray-500">Rol del usuario</label>
+    <label class="text-sm text-gray-500">{{ $label }}</label>
 
     <div wire:model="{{ $wireModel }}" class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3 {{ $styles ?? false ? $styles : '' }}">
         <x-icon label="expand_more" />

@@ -5,9 +5,11 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User; 
 use App\Models\Role; 
+use App\Models\Center; 
+use App\Models\VerificationCode; 
 
 class RegisterForm extends Component {
-    public $name, $email, $password, $repeat; 
+    public $name, $email, $password, $repeat, $verification_code, $doesUserExist; 
 
     protected $rules = [
         'name' => 'required',
@@ -30,32 +32,71 @@ class RegisterForm extends Component {
     public function confirm() {
         $this->validate();
 
+        if($this->doesUserExist) {
+            if(strlen($this->verification_code) <= 0) {
+                return toastr()->error("El código de validación es requerido");
+            }
+        }
+
         $email_taken = User::where('email', $this->email)->first(); 
 
         if($email_taken) return $this->addError('email_taken', 'El email ya está en uso');
 
-        $role = Role::create([
-            'name' => "Administrador"
-        ]);
-        
-        Role::insert([
-            ['name' => "Profesor"],
-            ['name' => "Estudiante"],
-        ]);
+        if(!$this->doesUserExist) {
+            $role = Role::create([
+                'name' => "Administrador"
+            ]);
+            
+            Role::insert([
+                ['name' => "Profesor"],
+                ['name' => "Estudiante"],
+            ]);
 
-        if(!$role) return; 
+            
+            if(!$role) return; 
 
-        User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'role_id' => $role->id,
-            'password' => Hash::make($this->password)
-        ]);
+            User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'role_id' => $role->id,
+                'status' => 'active', 
+                'password' => Hash::make($this->password)
+            ]);
 
-        return redirect('/login');
+            return redirect('/login');
+        } else {
+            $verification_code = VerificationCode::where('code', $this->verification_code)->first();
+
+            if(!$verification_code) return toastr()->error("El código de validación es incorrecto");
+
+            $role_id = $verification_code->role_id;
+            $center_id = $verification_code->center_id;
+
+            $role = Role::find($role_id);
+            $center = Center::find($center_id);
+
+            if(!$role || !$center) return toastr()->error("El rol o centro que fué asignado a esta invitación ya no existe");
+
+            User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'role_id' => $role->id,
+                'center_id' => $center->id,
+                'status' => 'pending',
+                'password' => Hash::make($this->password)
+            ]);
+
+            return redirect('/login');
+        }
     }
 
     public function render() {
+        $this->doesUserExist = false; 
+
+        if(User::count() > 0) {
+            $this->doesUserExist = true; 
+        }
+
         return view('livewire.sections.guest.auth.register-form');
     }
 }

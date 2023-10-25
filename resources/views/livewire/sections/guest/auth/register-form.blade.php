@@ -1,4 +1,14 @@
 <div>
+    @if ($doesUserExist)
+        <x-text-input 
+            styles="mt-1 mb-3" 
+            wireModel="verification_code" 
+            type="text" 
+            icon="qr_code" 
+            placeholder="Código de invitación" 
+        />
+    @endif
+
     @error('name')
         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
     @enderror

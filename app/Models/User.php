@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function center() {
+        return $this->belongsTo(Center::class, 'center_id');
+    }
 }

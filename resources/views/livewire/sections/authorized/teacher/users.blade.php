@@ -1,8 +1,9 @@
 <main x-data>
     {{-- @ Navigator --}}
     <section class="flex mt-5 items-center justify-between gap-5 flex-wrap">
+        CAMBIAR ESTE FILTRO A COMPONENTE TEXT INPUT
         <div class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
-            <x-icon label="person" />
+            <x-icon label="search" />
 
             <input wire:model.live="userFilter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="Nombre, e.g Xavier Morell" />
         </div>   
@@ -63,16 +64,7 @@
         <div class="mt-5">
             {{ $this->users->links() }}
         </div>
-    </div>
-
-    <script>
-        document.addEventListener("livewire:load", function () {
-            Livewire.hook('element.updated', (el, component) => {
-                console.log('userFilter changed:', component.get('userFilter'));
-                
-            });
-        });
-    </script>    
+    </div>  
 
     {{-- @ Delete --}}
     <x-modal wire:model="deleting" styles="flex flex-col gap-5">
@@ -131,6 +123,7 @@
 
         <x-selector 
             wireModel="role" 
+            label="Rol de Usuario"
             :options="$options"
         />
 

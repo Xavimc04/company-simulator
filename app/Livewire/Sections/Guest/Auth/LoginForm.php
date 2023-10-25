@@ -27,13 +27,32 @@ class LoginForm extends Component {
             'email' => $this->email, 
             'password' => $this->password
         ])) {
-            session()->regenerate(); 
+            if(Auth::user()->status != 'active') {
+                Auth::logout(); 
 
-            if(Auth::user() && Auth::user()->role && Auth::user()->role->name == 'Administrador') {
-                return redirect('/teacher/dashboard');
+                return toastr()->error('credentials', 'El usuario está deshabilitado o pendiente');
             }
 
-            return redirect('/student/dashboard');
+            if(Auth::user()->center_id != null) {
+                if(Auth::user()->center->status != 'active') {
+                    Auth::logout(); 
+
+                    return toastr()->error('credentials', 'El centro está deshabilitado o pendiente');
+                }
+            }
+
+            if(Auth::user() && Auth::user()->role) {
+                $role_name = Auth::user()->role->name; 
+                
+                if($role_name == 'Administrador') return redirect('/admin/dashboard');
+                elseif($role_name == 'Profesor') return redirect('/teacher/dashboard');
+                elseif($role_name == 'Estudiante') return redirect('/student/dashboard');
+                else return redirect('/');
+            }
+
+            session()->regenerate(); 
+
+            return redirect('/');
         } else {
             return $this->addError('credentials', 'Las credenciales son incorrectas');
         }
