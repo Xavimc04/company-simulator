@@ -17,6 +17,9 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">
+                        
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -38,7 +41,13 @@
             <tbody>
                 @foreach ($this->users as $user)
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-ellipsis truncate">
+                        <td class="py-4 text-ellipsis truncate pl-5 w-[30px]">
+                            @if ($user['profile_url'])
+                                <img class="w-[20px] rounded-full h-[20px]" src="{{ $user['profile_url'] }}" />
+                            @endif
+                        </td>
+
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 w-[50px] whitespace-nowrap text-ellipsis truncate">
                             {{ $user['id'] }}
                         </th>
                         <td class="px-6 py-4 text-ellipsis truncate">
