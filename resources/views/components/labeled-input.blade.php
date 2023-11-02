@@ -6,7 +6,7 @@
         type="{{ $type }}" 
         icon="{{ $icon }}" 
         value="{{ $value ?? false ? $value : '' }}"
-        disabled="{{ $disabled ?? false ? $disabled : 'false' }}"
+        disabled="{{ $disabled ?? false }}"
         placeholder="{{ $placeholder ?? false ? $placeholder : '' }}" 
     />
 </div>
