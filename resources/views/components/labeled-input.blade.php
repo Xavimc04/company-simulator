@@ -2,9 +2,10 @@
     <label class="text-sm text-gray-500">{{ $label }}</label>
 
     <x-text-input
-        wireModel="{{ $wireModel }}"
+        wireModel="{{ $wireModel ?? false ? $wireModel : '' }}"
         type="{{ $type }}" 
         icon="{{ $icon }}" 
+        value="{{ $value ?? false ? $value : '' }}"
         disabled="{{ $disabled ?? false ? $disabled : 'false' }}"
         placeholder="{{ $placeholder ?? false ? $placeholder : '' }}" 
     />
