@@ -42,10 +42,6 @@
                 />
 
                 @livewire('sections.authorized.profile-picture')
-
-                <div class="w-full flex justify-end">
-                    <x-button wireClick="save" icon="add_task" styles="justify-center" content="Confirmar cambios" />
-                </div>
             </section>
 
             <section class="px-0 lg:px-10 w-full lg:w-[400px] rounded border-0 lg:border-l">
