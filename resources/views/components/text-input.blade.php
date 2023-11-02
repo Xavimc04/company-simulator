@@ -3,5 +3,5 @@
         <x-icon label="{{ $icon }}" />
     @endif
 
-    <input wire:model.live="{{ $wireModel }}" type="{{ $type ?? false ? $type : 'text' }}" class="flex-1 py-2 bg-transparent text-black" placeholder="{{ $placeholder ?? false ? $placeholder : '' }}" />
+    <input wire:model.live="{{ $wireModel }}" disabled="{{ $disabled ?? false ? $disabled : 'false' }}" type="{{ $type ?? false ? $type : 'text' }}" class="flex-1 py-2 bg-transparent text-black" placeholder="{{ $placeholder ?? false ? $placeholder : '' }}" />
 </div>

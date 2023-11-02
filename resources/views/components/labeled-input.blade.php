@@ -5,6 +5,7 @@
         wireModel="{{ $wireModel }}"
         type="{{ $type }}" 
         icon="{{ $icon }}" 
+        disabled="{{ $disabled ?? false ? $disabled : 'false' }}"
         placeholder="{{ $placeholder }}" 
     />
 </div>
