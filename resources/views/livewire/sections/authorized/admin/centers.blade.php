@@ -55,9 +55,9 @@
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
                             @if ($center['status'] == 'active')
-                                <span class="text-green-500">Activa</span>
+                                <span class="text-green-500 lowercase bg-green-100 px-2 py-1 rounded border border-green-500">Activo</span>
                             @else
-                                <span class="text-red-500">Inactiva</span>
+                                <span class="text-red-500 lowercase bg-red-100 px-2 py-1 rounded border border-red-500">Inactivo</span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
