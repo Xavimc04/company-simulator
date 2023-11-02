@@ -32,6 +32,9 @@
                         Rol
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Estado
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Fecha de alta
                     </th>
                     <th scope="col" class="px-6 py-3" />
@@ -43,7 +46,7 @@
                     <tr class="bg-white border-b">
                         <td class="py-4 text-ellipsis truncate pl-5 w-[30px]">
                             @if ($user['profile_url'])
-                                <img class="w-[20px] rounded-full h-[20px]" src="{{ $user['profile_url'] }}" />
+                                <img class="w-[20px] rounded-full h-[20px]" src="{{ asset('storage/profile-pictures/' . $user['profile_url']) }}" />
                             @endif
                         </td>
 
@@ -58,6 +61,13 @@
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user->role ? $user->role->name : null }}
+                        </td>
+                        <td class="px-6 py-4 text-ellipsis truncate">
+                            @if ($user['status'] == 'active')
+                                <span class="text-green-500 lowercase bg-green-100 px-2 py-1 rounded border border-green-500">Activo</span>
+                            @else
+                                <span class="text-red-500 lowercase bg-red-100 px-2 py-1 rounded border border-red-500">Inactivo</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user['created_at'] }}
