@@ -101,7 +101,7 @@
             wireModel="name" 
             type="text"
             icon="apartment"
-            placeholder="e.g Monlau Grup"
+            placeholder="e.g Monlau Group"
         />
 
         @error('email')

@@ -53,7 +53,7 @@
             wireModel="social_name" 
             type="text"
             icon="signature"
-            placeholder="Monlau Grup"
+            placeholder="Monlau Group"
         />
 
         <x-labeled-input 
