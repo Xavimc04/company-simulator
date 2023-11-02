@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function() {
     }); 
 
     // @ Shared
+    Route::view('/profile', 'web.sections.authorized.profile'); 
+
     Route::get('logout' , function() {
         Auth::logout(); 
 
