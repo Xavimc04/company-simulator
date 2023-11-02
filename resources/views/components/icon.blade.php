@@ -1,3 +1,3 @@
-<span class="material-symbols-outlined">
+<span class="material-symbols-outlined {{ $styles ?? false ? $styles : '' }}">
     {{ $label }}
 </span>
