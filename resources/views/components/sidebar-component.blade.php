@@ -35,7 +35,7 @@
 
 <aside class="w-[250px] border-r hidden lg:flex flex-col transition-all bg-white">
     <div class="flex w-full items-end justify-end">
-        <button onclick="toggle()" id="close" class="flex items-center justify-center px-3 pt-5">
+        <button onclick="toggle()" id="close" class="flex lg:hidden items-center justify-center px-3 pt-5">
             <x-icon label="close" styles="cursor-pointer hover:text-blue-500 transition-all" />
         </button>
     </div>
