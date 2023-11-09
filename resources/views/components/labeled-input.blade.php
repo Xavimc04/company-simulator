@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 {{ $styles ?? false ? $styles : '' }}">
     <label class="text-sm text-gray-500">{{ $label }}</label>
 
     <x-text-input

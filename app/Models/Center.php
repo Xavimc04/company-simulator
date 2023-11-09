@@ -13,4 +13,8 @@ class Center extends Model {
     public function users() {
         return $this->hasMany(User::class, 'center_id');
     }
+
+    public function companies() {
+        return $this->hasMany(Company::class, 'center_id');
+    }
 }

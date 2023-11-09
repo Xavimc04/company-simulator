@@ -3,6 +3,7 @@
         // @ Teacher
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "person", "label" => "Gestión de usuarios", "route" => "usuarios" ],
+        [ "prefix" => "teacher", "role" => "Profesor", "icon" => "captive_portal", "label" => "Empresas", "route" => "empresas" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "star", "label" => "Evaluación", "route" => "evaluacion" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "description", "label" => "Informes", "route" => "informes" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "mail", "label" => "Correo", "route" => "correo" ],
@@ -17,7 +18,6 @@
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "vpn_lock", "label" => "Organismos oficiales", "route" => "organismos-oficiales" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "hub", "label" => "Directorio de centros", "route" => "centros" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "schedule", "label" => "Horarios", "route" => "horarios" ],
-        [ "prefix" => "teacher", "role" => "Profesor", "icon" => "captive_portal", "label" => "Empresas", "route" => "empresas" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "school", "label" => "Centro educativo", "route" => "centro-educativo" ],
 
         // Administrator
