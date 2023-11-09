@@ -8,7 +8,9 @@
             placeholder="Buscar usuario..." 
         />
 
-        <x-button wireClick="inviteContact" icon="add" content="Enviar invitación" />
+        @if(Auth::user()->role->name == 'Profesor') 
+            <x-button wireClick="inviteContact" icon="add" content="Enviar invitación" />
+        @endif
     </section>
 
     {{-- @ User displaying --}}

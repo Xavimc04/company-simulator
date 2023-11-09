@@ -90,7 +90,11 @@ class Users extends Component {
     }
     
     public function render() { 
-        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')->where('center_id', Auth::user()->center_id)->paginate(10);
+        $this->users = User::where('name', 'like', '%' . $this->userFilter . '%')
+        ->when(Auth::user()->role->name == 'Profesor', function ($query) {
+            return $query->where('center_id', Auth::user()->center_id);
+        })
+        ->paginate(10);
 
         return view('livewire.sections.authorized.teacher.users');
     }

@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function() {
     Route::middleware(isAdministrator::class)->group(function() {
         Route::view('/admin/dashboard', 'web.sections.authorized.administrator.dashboard'); 
         Route::view('/admin/centros', 'web.sections.authorized.administrator.centers'); 
+        Route::view('/admin/usuarios', 'web.sections.authorized.teacher.users'); 
     }); 
 
 
