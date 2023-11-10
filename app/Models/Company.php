@@ -13,4 +13,8 @@ class Company extends Model {
     public function center() {
         return $this->belongsTo(Center::class);
     }
+
+    public function teachers() {
+        return $this->hasMany(CompanyTeacher::class);
+    }
 }

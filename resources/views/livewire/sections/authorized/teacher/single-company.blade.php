@@ -162,8 +162,41 @@
     <section 
         x-show="page === 'Docentes'" 
         x-transition
+        class="mt-10"
     >
-        Profesorado
+        <x-text-input  
+            wireModel="teacher_filter" 
+            type="text" 
+            icon="search" 
+            styles="w-full"
+            placeholder="Filtrar profesores..." 
+        />
+
+        <div class="flex items-center gap-10 mt-3">
+            <div class="flex items-center gap-3">
+                <div class="h-[10px] bg-blue-500 w-[10px] rounded-full"></div>
+
+                Docente asignado
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="h-[10px] bg-gray-300 w-[10px] rounded-full"></div>
+
+                Sin asignar
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-10">
+            @foreach ($teachers as $teacher)
+                <div wire:click="toggleTeacher('{{ $teacher->id }}')" class="{{ $this->userIsTeacher($teacher->id) ? 'bg-blue-500 text-white' : 'bg-gray-100' }} px-5 py-2 flex items-center gap-3 rounded cursor-pointer">
+                    @if ($teacher['profile_url'])
+                        <img class="w-[20px] rounded-full h-[20px]" src="{{ asset('storage/profile-pictures/' . $teacher['profile_url']) }}" />
+                    @endif
+    
+                    {{ $teacher->name }}
+                </div>
+            @endforeach
+        </div>
     </section>
 
     <style>
