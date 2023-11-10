@@ -63,6 +63,7 @@
             styles="flex-1 lg:flex-none lg:w-[49%] mt-5"
             type="text"
             icon="call"
+            numeric="true"
             placeholder="e.g +34 123 456 789"
         />
 
@@ -78,6 +79,7 @@
         <x-labeled-input 
             label="Código Postal" 
             wireModel="cp" 
+            numeric="true"
             styles="flex-1 lg:flex-none lg:w-[49%] mt-5"
             type="text"
             icon="explore"
@@ -141,6 +143,10 @@
         
                 <input id="dropzone-file" wire:model.live="image" type="file" class="hidden" accept="image/png, image/gif, image/jpeg" />
             </label>
+        </div>
+
+        <div class="mt-5 flex justify-end w-full">
+            <x-button wireClick="save" content="Confirmar cambios" icon="add_task" />
         </div>
     </section>
 </main>
