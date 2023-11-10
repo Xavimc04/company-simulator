@@ -4,7 +4,7 @@
         <div class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
             <x-icon label="search" />
 
-            <input wire:model.live="companyFilter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="..." />
+            <input wire:model.live="filter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="..." />
         </div>   
 
         <x-button wireClick="handleCreateModal" icon="add" content="Nueva empresa" />

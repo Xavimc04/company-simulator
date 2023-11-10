@@ -12,7 +12,7 @@ class SingleCompany extends Component {
         "Detalles", "Docentes", "Mercado", "Trabajadores", "Mayoristas", "Clientes", "Servicios", "Banca", "Eliminar datos", "Otros"
     ];
 
-    public $company, $current_page = "Detalles";
+    public $company, $default_page = "Detalles";
     
     public $social_denomination, $name, $image, $cif, $sector, $phone, $location, $cp, $city, $contact_email, $form_level; 
     

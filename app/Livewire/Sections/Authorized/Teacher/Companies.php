@@ -8,7 +8,7 @@ use Livewire\Component;
 class Companies extends Component {
     protected $companies; 
 
-    public $companyFilter, $creating;
+    public $filter, $creating;
     public $social_denomination, $name, $sector, $form_level; 
 
     public function handleCreateModal() {
@@ -58,7 +58,7 @@ class Companies extends Component {
     }
 
     public function render() {
-        $this->companies = Company::where('center_id', Auth::user()->center_id)->get(); 
+        $this->companies = Company::where('center_id', Auth::user()->center_id)->where('name', 'LIKE', '%' . $this->filter . '%')->get(); 
         
         return view('livewire.sections.authorized.teacher.companies');
     }

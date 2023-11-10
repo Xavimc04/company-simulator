@@ -1,13 +1,21 @@
-<main x-data>
+<main x-data="{ page: '{{ $default_page }}' }">
     {{-- @ Navigation --}} 
     <section class="flex mt-5 items-center gap-2 overflow-x-scroll"> 
         @foreach ($pages as $page)
-            <button wire:click="$set('current_page', '{{ $page }}')" class="{{ $current_page == $page ? 'bg-blue-500 text-white' : 'bg-gray-100' }} transition-all px-5 py-2 rounded text-ellipsis truncate min-w-[150px]">{{ $page }}</button>
+            <button 
+                x-on:click="page = '{{ $page }}'" 
+                :class="{ 'bg-blue-500 text-white': page === '{{ $page }}', 'bg-gray-100': page !== '{{ $page }}' }"
+                class="transition-all px-5 py-2 rounded text-ellipsis truncate min-w-[150px]"
+            >{{ $page }}</button>
         @endforeach
     </section>
 
-    {{-- @ Content --}}
-    <section class="flex-1 mt-5 flex flex-wrap justify-between">
+    {{-- @ Details page --}}
+    <section 
+        x-show="page === 'Detalles'" 
+        x-transition
+        class="flex-1 mt-5 flex flex-wrap justify-between"
+    >
         <x-labeled-input 
             label="Denominación social" 
             wireModel="social_denomination" 
@@ -149,4 +157,22 @@
             <x-button wireClick="save" content="Confirmar cambios" icon="add_task" />
         </div>
     </section>
+
+    {{-- @ Teachers --}}
+    <section 
+        x-show="page === 'Docentes'" 
+        x-transition
+    >
+        Profesorado
+    </section>
+
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.5s;
+        }
+    
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
 </main>
