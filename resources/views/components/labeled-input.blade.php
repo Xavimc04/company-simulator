@@ -7,6 +7,7 @@
         icon="{{ $icon }}" 
         value="{{ $value ?? false ? $value : '' }}"
         disabled="{{ $disabled ?? false }}"
+        numeric="{{ $numeric ?? false }}"
         placeholder="{{ $placeholder ?? false ? $placeholder : '' }}" 
     />
 </div>
