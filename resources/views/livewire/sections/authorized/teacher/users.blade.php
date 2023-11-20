@@ -9,7 +9,7 @@
         />
 
         @if(Auth::user()->role->name == 'Profesor') 
-            <x-button wireClick="inviteContact" icon="add" content="Enviar invitación" />
+            <x-button wireClick="inviteContact" icon="add" content="Enviar invitación" /> 
         @endif
     </section>
 

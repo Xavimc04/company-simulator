@@ -10,4 +10,12 @@ class Role extends Model
     use HasFactory;
 
     protected $guarded = []; 
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
+    public function verificationCodes() {
+        return $this->hasMany(VerificationCode::class);
+    }
 }

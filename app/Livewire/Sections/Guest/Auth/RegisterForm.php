@@ -92,7 +92,13 @@ class RegisterForm extends Component {
                 'password' => Hash::make($this->password)
             ]);
 
-            VerificationCode::where('code', $this->verification_code)->delete();
+            if(($verification_code->usages - 1) > 0) {
+                VerificationCode::where('code', $this->verification_code)->update([
+                    'usages' => $verification_code->usages - 1
+                ]);
+            } else {
+                VerificationCode::where('code', $this->verification_code)->delete();
+            }
 
             return redirect('/login');
         }

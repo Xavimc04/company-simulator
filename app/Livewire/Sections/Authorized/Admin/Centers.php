@@ -70,7 +70,8 @@ class Centers extends Component {
         $wasSend = VerificationCode::create([
             'center_id' => $this->inviting,
             'role_id' => Role::where('name', 'Profesor')->first()->id,
-            'code' => $code
+            'code' => $code, 
+            'usages' => 1
         ]);
 
         if($wasSend) {

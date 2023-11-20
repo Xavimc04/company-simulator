@@ -38,7 +38,8 @@ class Users extends Component {
         $wasSend = VerificationCode::create([
             'center_id' => Auth::user()->center_id,
             'role_id' => $this->role,
-            'code' => $code
+            'code' => $code, 
+            'usages' => 1
         ]);
 
         if($wasSend) {
@@ -51,20 +52,9 @@ class Users extends Component {
         }
     }
 
-    protected $rules = [
-        'email' => 'required|email|unique:users,email',
-        'role' => 'required'
-    ];
-
-    protected $messages = [
-        'email.required' => 'El campo email es requerido',
-        'email.email' => 'El campo email debe ser un email válido',
-        'email.unique' => 'El campo email ya está en uso',
-        'role.required' => 'El campo rol es requerido'
-    ];
-
     public function accept($user_id) {
         $user = User::find($user_id); 
+
         $user->update([
             'status' => 'active'
         ]);
