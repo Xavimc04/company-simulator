@@ -199,6 +199,27 @@
         </div>
     </section>
 
+    {{-- @ Market --}}
+    <section 
+        x-show="page === 'Mercado'" 
+        x-transition
+        class="mt-10"
+    >
+        @foreach ($marketQuestions as $question)
+            <div class="flex flex-col md:flex-row gap-5 items-center mb-5 border-b pb-5"> 
+                <input type="checkbox" @if ($this->isQuestionMarket($question['index']))
+                    checked
+                @endif wire:click="toggleMarketQuestion('{{ $question['index'] }}')">
+
+                <div class="flex flex-col flex-1">
+                    <span class="font-semibold">{{ $question['title'] }}</span>
+
+                    <span class="text-sm text-gray-500">{{ $question['description'] }}</span>
+                </div>
+            </div>
+        @endforeach
+    </section>
+
     <style>
         .fade-enter-active, .fade-leave-active {
             transition: opacity 0.5s;

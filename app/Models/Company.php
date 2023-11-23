@@ -17,4 +17,8 @@ class Company extends Model {
     public function teachers() {
         return $this->hasMany(CompanyTeacher::class);
     }
+
+    public function marketQuestions() {
+        return $this->hasMany(CompanyMarket::class);
+    }
 }

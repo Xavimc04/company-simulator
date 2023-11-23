@@ -1,5 +1,7 @@
 <div class="flex flex-col gap-2 {{ $styles ?? false ? $styles : '' }}">
-    <label class="text-sm text-gray-500">{{ $label }}</label>
+    @if (isset($label))
+        <label class="text-sm text-gray-500">{{ $label }}</label>
+    @endif
 
     <div wire:model.live="{{ $wireModel }}" class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
         <x-icon label="expand_more" />

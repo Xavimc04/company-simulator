@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\CompanyTeacher; 
 use App\Models\Role; 
+use App\Models\CompanyMarket; 
 
 class SingleCompany extends Component {
     use WithFileUploads;
@@ -17,7 +18,7 @@ class SingleCompany extends Component {
     ];
 
     // @ Details section
-    public $company, $default_page = "Docentes";
+    public $company, $default_page = "Mercado";
     
     public $social_denomination, $name, $image, $cif, $sector, $phone, $location, $cp, $city, $contact_email, $form_level; 
     
@@ -106,6 +107,59 @@ class SingleCompany extends Component {
             }
         } catch(\Throwable $th) {
             throw $th; 
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+        }
+    }
+
+    // @ Market module
+    public $marketQuestions = [
+        [
+            "index" => "english_availability", 
+            "title" => "Damos respuesta en inglés", 
+            "description" => "Si marcas esta casilla, se indicará a las demás empresas que os podéis comunicar en Inglés en un proceso de compra/venta."
+        ],
+        [
+            "index" => "vacations",
+            "title" => "Estamos de vacaciones", 
+            "description" => "Si marcas esta casilla, se indicará a las demás empresas que no podeis atender sus peticiones en este momento."
+        ], 
+        [
+            "index" => "messages",
+            "title" => "Mensajería unificada", 
+            "description" => "Recibiréis todos los mensajes de sistema en el departamento de Recepción"
+        ], 
+        [
+            "index" => "public_email",
+            "title" => "Email público", 
+            "description" => "Si marcas esta casilla, el email de notificaciones también será público al Market, y por lo tanto visible para el resto de empresas de la red."
+        ]
+    ]; 
+
+    public function isQuestionMarket($index) {
+        $question = CompanyMarket::where('company_id', $this->company->id)->where('index', $index)->first();
+
+        if($question) {
+            return true;
+        } 
+
+        return false; 
+    }
+
+    public function toggleMarketQuestion($index) {
+        try {
+            $question = CompanyMarket::where('company_id', $this->company->id)->where('index', $index)->first();
+
+            if($question) {
+                $question->delete(); 
+                toastr()->error("La pregunta ha sido eliminada.");
+            } else {
+                $question = new CompanyMarket();
+                $question->company_id = $this->company->id;
+                $question->index = $index;
+                $question->save();
+                toastr()->success("La pregunta ha sido añadida.");
+            }
+        } catch(\Throwable $th) { 
             toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
