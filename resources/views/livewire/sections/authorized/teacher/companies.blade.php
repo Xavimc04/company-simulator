@@ -64,9 +64,9 @@
 
                         <td class="px-6 py-4 text-ellipsis truncate">
                             @if ($company['status'] == 'active')
-                                <span class="text-green-500 lowercase bg-green-100 px-2 py-1 rounded border border-green-500">Activo</span>
+                                <span class="text-green-500 lowercase bg-green-100 px-2 py-1 rounded border border-green-500">Activa</span>
                             @else
-                                <span class="text-red-500 lowercase bg-red-100 px-2 py-1 rounded border border-red-500">Inactivo</span>
+                                <span class="text-red-500 lowercase bg-red-100 px-2 py-1 rounded border border-red-500">Inactiva</span>
                             @endif
                         </td>
 

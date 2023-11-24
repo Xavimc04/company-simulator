@@ -20,9 +20,9 @@ class SingleCompany extends Component {
     ];
 
     // @ Details section
-    public $company, $default_page = "Trabajadores";
+    public $company, $default_page = "Detalles";
     
-    public $social_denomination, $name, $image, $cif, $sector, $phone, $location, $cp, $city, $contact_email, $form_level; 
+    public $social_denomination, $name, $image, $cif, $sector, $phone, $location, $cp, $city, $contact_email, $form_level, $status; 
     
     public function mount($company) {
         $this->company = $company;
@@ -36,6 +36,7 @@ class SingleCompany extends Component {
         $this->city = $company->city;
         $this->contact_email = $company->contact_email;
         $this->form_level = $company->form_level;
+        $this->status = $company->status;
     }
 
     public function save() {
@@ -55,6 +56,7 @@ class SingleCompany extends Component {
             $this->company->city = $this->city;
             $this->company->contact_email = $this->contact_email;
             $this->company->form_level = $this->form_level;
+            $this->company->status = $this->status;
             $this->company->save();
             toastr()->success('Los datos se han guardado correctamente', '¡Éxito!');
         } catch (\Throwable $th) {

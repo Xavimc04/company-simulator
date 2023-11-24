@@ -139,6 +139,26 @@
             :options="$options"
         />
 
+        <?php  
+            $availableStatus = [
+                [
+                    "value" => "active",
+                    "label" => "Activa"
+                ],
+                [
+                    "value" => "inactive",
+                    "label" => "Inactiva"
+                ]
+            ];  
+        ?>
+
+        <x-selector 
+            wireModel="status" 
+            label="Estado"
+            styles="flex-1 lg:flex-none lg:w-[49%] mt-5"
+            :options="$availableStatus"
+        />
+
         <div wire:loading wire:target="image" class="w-full mt-5">Subiendo...</div>
 
         <div class="flex items-center mt-10 justify-center w-full">
