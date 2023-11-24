@@ -22,19 +22,20 @@ Route::middleware('auth')->group(function() {
     // @ Administrator
     Route::middleware(isAdministrator::class)->group(function() {
         Route::view('/admin/dashboard', 'web.sections.authorized.administrator.dashboard'); 
-        Route::view('/admin/centros', 'web.sections.authorized.administrator.centers'); 
-        Route::view('/admin/usuarios', 'web.sections.authorized.teacher.users'); 
+        Route::view('/admin/centers', 'web.sections.authorized.administrator.centers'); 
+        Route::view('/admin/users', 'web.sections.authorized.teacher.users'); 
     }); 
 
 
     // @ Teacher
     Route::middleware(isTeacher::class)->group(function() {
         Route::view('/teacher/dashboard', 'web.sections.authorized.teacher.dashboard'); 
-        Route::view('/teacher/usuarios', 'web.sections.authorized.teacher.users'); 
-        Route::view('/teacher/empresas', 'web.sections.authorized.teacher.companies'); 
+        Route::view('/teacher/users', 'web.sections.authorized.teacher.users'); 
+        Route::view('/teacher/companies', 'web.sections.authorized.teacher.companies'); 
         Route::view('/teacher/invites', 'web.sections.authorized.teacher.links'); 
+        Route::view('/teacher/wholesalers', 'web.sections.authorized.teacher.links'); 
 
-        Route::get('/teacher/empresas/{id}', [App\Http\Controllers\MainController::class, 'company']); 
+        Route::get('/teacher/companies/{id}', [App\Http\Controllers\MainController::class, 'company']); 
     }); 
 
     // @ Shared

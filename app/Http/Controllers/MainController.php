@@ -9,7 +9,7 @@ class MainController extends Controller {
         $company = Company::find($company_id); 
 
         if(!$company) {
-            return redirect('/teacher/empresas'); 
+            return redirect('/teacher/companies'); 
         }
 
         return view('web.sections.authorized.teacher.single-company', [

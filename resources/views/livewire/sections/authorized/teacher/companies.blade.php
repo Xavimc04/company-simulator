@@ -71,7 +71,7 @@
                         </td>
 
                         <td class="px-6 py-4 gap-5 flex items-center justify-end">
-                            <span onclick="window.location.href = '/teacher/empresas/{{ $company['id'] }}'" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">visibility</span>
+                            <span onclick="window.location.href = '/teacher/companies/{{ $company['id'] }}'" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">visibility</span>
                         </td>
                     </tr>
                 @endforeach
