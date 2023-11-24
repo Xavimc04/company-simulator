@@ -16,6 +16,10 @@ input:focus {
     outline: none !important;
 }
 
+select:focus {
+    outline: none !important;
+}
+
 *::-webkit-scrollbar {
     display: none;
 }
