@@ -21,4 +21,8 @@ class Company extends Model {
     public function marketQuestions() {
         return $this->hasMany(CompanyMarket::class);
     }
+
+    public function employees() {
+        return $this->hasMany(CompanyEmployees::class);
+    }
 }

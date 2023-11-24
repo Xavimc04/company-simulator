@@ -5,12 +5,14 @@ use App\Models\Company;
 use Livewire\WithFileUploads;
 use App\Models\User; 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\CompanyTeacher; 
 use App\Models\Role; 
 use App\Models\CompanyMarket; 
+use App\Models\CompanyEmployee; 
 
 class SingleCompany extends Component {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     // @ Main
     public $pages = [
@@ -18,7 +20,7 @@ class SingleCompany extends Component {
     ];
 
     // @ Details section
-    public $company, $default_page = "Mercado";
+    public $company, $default_page = "Trabajadores";
     
     public $social_denomination, $name, $image, $cif, $sector, $phone, $location, $cp, $city, $contact_email, $form_level; 
     
@@ -36,14 +38,12 @@ class SingleCompany extends Component {
         $this->form_level = $company->form_level;
     }
 
-    protected $rules = [
-        'social_denomination' => 'required|string|max:255',
-        'name' => 'required|string|max:255'
-    ]; 
-
     public function save() {
         try {
-            $this->validate(); 
+            $this->validate([
+                'social_denomination' => 'required|string|max:255',
+                'name' => 'required|string|max:255'
+            ]); 
 
             $this->company->social_denomination = $this->social_denomination;
             $this->company->name = $this->name; 
@@ -164,6 +164,90 @@ class SingleCompany extends Component {
         }
     }
 
+    // @ Employees module
+    protected $employees = [];
+    public $employee_filter, $employee_modal, $employee_editing;
+    public $employee_id, $employee_dept, $employee_boss;
+
+    public function editEmployee($identifier) {
+        $this->handleEmployeeModal();
+
+        $employee = CompanyEmployee::find($identifier);
+
+        
+        if($employee) {
+            $this->employee_editing = $identifier;
+            $this->employee_id = $employee->user_id;
+            $this->employee_dept = $employee->dept;
+            $this->employee_boss = $employee->boss;
+        }
+    }
+
+    public function handleEmployeeModal() {
+        $this->employee_editing = false; 
+        $this->employee_modal = !$this->employee_modal;
+
+        if($this->employee_modal) {
+            $this->employee_id = null;
+            $this->employee_dept = null;
+            $this->employee_boss = null;
+        }
+    }
+
+    public function addEmployee() {
+        $this->validate([
+            'employee_id' => 'required|exists:users,id',
+            'employee_dept' => 'required|string|max:255',
+            'employee_boss' => 'required|max:255'
+        ], [
+            'employee_id.required' => 'Debes seleccionar un trabajador.',
+            'employee_id.exists' => 'El trabajador seleccionado no existe.',
+            'employee_dept.required' => 'Debes indicar el departamento del trabajador.',
+            'employee_dept.string' => 'El departamento debe ser un texto.',
+            'employee_dept.max' => 'El departamento no puede superar los 255 caracteres.',
+            'employee_boss.required' => 'Debes indicar el jefe del trabajador.',
+            'employee_boss.max' => 'El jefe no puede superar los 255 caracteres.'
+        ]);
+
+        if($this->employee_editing) {
+            $employee = CompanyEmployee::find($this->employee_editing);
+
+            if($employee) {
+                $employee->user_id = $this->employee_id;
+                $employee->dept = $this->employee_dept;
+                $employee->boss = $this->employee_boss;
+                $employee->save();
+
+                toastr()->success("El trabajador ha sido actualizado.");
+                $this->handleEmployeeModal();
+            } else {
+                toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+            }
+
+            return;
+        }
+
+        try {
+            if(CompanyEmployee::where('company_id', $this->company->id)->where('user_id', $this->employee_id)->first()) {
+                toastr()->error("El trabajador ya está añadido.");
+                return;
+            }
+
+            CompanyEmployee::create([
+                'company_id' => $this->company->id,
+                'user_id' => $this->employee_id,
+                'dept' => $this->employee_dept,
+                'boss' => $this->employee_boss
+            ]);
+
+            toastr()->success("El trabajador ha sido añadido.");
+            $this->handleEmployeeModal();
+        } catch(\Throwable $th) { 
+            throw $th;
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+        }
+    }
+
     // @ Global render
     public function render() {
         $teacherRole = Role::where('name', 'Profesor')->first();
@@ -171,6 +255,8 @@ class SingleCompany extends Component {
         if($teacherRole) {
             $this->teachers = User::where('center_id', $this->company->center_id)->where('name', 'LIKE', '%' . $this->teacher_filter . '%')->where('role_id', $teacherRole->id)->get();
         }
+
+        $this->employees = CompanyEmployee::where('company_id', $this->company->id)->whereRelation('user', 'name', 'like', '%' . $this->employee_filter . '%')->paginate(10);
 
         return view('livewire.sections.authorized.teacher.single-company');
     }

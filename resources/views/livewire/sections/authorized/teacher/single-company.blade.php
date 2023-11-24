@@ -1,3 +1,8 @@
+@php
+    use App\Models\User; 
+    use App\Models\Role; 
+@endphp
+
 <main x-data="{ page: '{{ $default_page }}' }">
     {{-- @ Navigation --}} 
     <section class="flex mt-5 items-center gap-2 overflow-x-scroll"> 
@@ -207,7 +212,7 @@
     >
         @foreach ($marketQuestions as $question)
             <div class="flex flex-col md:flex-row gap-5 items-center mb-5 border-b pb-5"> 
-                <input type="checkbox" @if ($this->isQuestionMarket($question['index']))
+                <input type="checkbox" class="accent-blue-500" @if ($this->isQuestionMarket($question['index']))
                     checked
                 @endif wire:click="toggleMarketQuestion('{{ $question['index'] }}')">
 
@@ -219,6 +224,160 @@
             </div>
         @endforeach
     </section>
+
+    {{-- @ Employees --}}
+    <section 
+        x-show="page === 'Trabajadores'" 
+        x-transition
+        class="mt-10"
+    > 
+        <section class="flex mt-5 items-center justify-between gap-5 flex-wrap">
+            <div class="flex items-center bg-white gap-3 border border-black transition-all w-full flex-1 rounded px-3">
+                <x-icon label="search" />
+    
+                <input wire:model.live="employee_filter" type="text" class="flex-1 py-2 bg-transparent text-black" placeholder="..." />
+            </div>   
+    
+            <x-button wireClick="handleEmployeeModal" icon="person" content="Contratar" />
+        </section>
+
+        <div class="relative overflow-x-auto mt-10">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr> 
+                        <th scope="col" class="px-6 py-3">
+                            #
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Alumno
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Departamento
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Rango
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Fecha de contratación
+                        </th>
+                        <th scope="col" class="px-6 py-3" />
+                    </tr> 
+                </thead>
+    
+                <tbody>
+                    @foreach ($this->employees as $employee)
+                        <tr class="bg-white border-b">  
+                            <td class="px-6 py-4 text-ellipsis truncate">
+                                {{ $employee['id'] }}
+                            </td>
+    
+                            <td class="px-6 py-4 text-ellipsis truncate">
+                                {{ $employee->user->name }}
+                            </td>
+    
+                            <td class="px-6 py-4 text-ellipsis truncate">
+                                {{ $employee['dept'] }}
+                            </td>
+    
+                            <td class="px-6 py-4 text-ellipsis truncate">
+                                @if ($employee['boss'])
+                                    Jefe de dpto.
+                                @else 
+                                    Empleado
+                                @endif
+                            </td>
+    
+                            <td class="px-6 py-4 text-ellipsis truncate">
+                                {{ $employee['created_at']->diffForHumans() }}
+                            </td>
+    
+                            <td class="px-6 py-4 gap-5 flex items-center justify-end">
+                                <span wire:click="editEmployee('{{ $employee['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">edit</span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    {{-- @ Add employee --}}
+    <x-modal wire:model="employee_modal" styles="flex flex-col gap-2">
+        @error('employee_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+
+        <?php 
+            $users = []; 
+            $studentRole = Role::where('name', 'Estudiante')->first();
+
+            if($studentRole) {
+                $users = User::where('role_id', $studentRole->id)->where('center_id', $company->center_id)->get(); 
+            } 
+
+            $userOptions = []; 
+
+            foreach ($users as $value) {
+                $userOptions[] = [
+                    "value" => $value['id'],
+                    "label" => $value['name']
+                ];
+            }
+        ?>
+
+        <x-selector 
+            wireModel="employee_id" 
+            label="Alumno"
+            styles="mb-2"
+            :options="$userOptions"
+        />
+
+        @error('employee_dept') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+
+        <?php 
+            $dept = [
+                "Recepción", "Recursos humanos", "Finanzas", "Compras", "Ventas"
+            ];
+
+            $dptOptions = []; 
+
+            foreach ($dept as $value) {
+                $dptOptions[] = [
+                    "value" => $value,
+                    "label" => $value
+                ];
+            }
+        ?>
+
+        <x-selector 
+            wireModel="employee_dept" 
+            label="Departamento"
+            styles="mb-2"
+            :options="$dptOptions"
+        />
+
+        @error('employee_boss') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+
+        <?php  
+            $bossOptions = [
+                [
+                    "value" => 0,
+                    "label" => "Empleado"
+                ],
+                [
+                    "value" => 1,
+                    "label" => "Jefe de departamento"
+                ]
+            ];  
+        ?>
+
+        <x-selector 
+            wireModel="employee_boss" 
+            label="Rango"
+            styles="mb-2"
+            :options="$bossOptions"
+        />
+
+        <x-button wireClick="addEmployee" styles="justify-center" content="{{ $employee_editing ? 'Confirmar cambios' : 'Contratar' }}" />
+    </x-modal>
 
     <style>
         .fade-enter-active, .fade-leave-active {
