@@ -55,11 +55,11 @@
                         </td>
 
                         <td class="px-6 py-4 text-ellipsis truncate">
-                            Sin alumnos
+                            {{ $company->employees->count() }}
                         </td>
 
                         <td class="px-6 py-4 text-ellipsis truncate">
-                            Sin profesores
+                            {{ $company->teachers->count() }}
                         </td>
 
                         <td class="px-6 py-4 text-ellipsis truncate">

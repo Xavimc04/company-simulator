@@ -5,14 +5,13 @@ use App\Models\Company;
 use Livewire\WithFileUploads;
 use App\Models\User; 
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\CompanyTeacher; 
 use App\Models\Role; 
 use App\Models\CompanyMarket; 
 use App\Models\CompanyEmployee; 
 
 class SingleCompany extends Component {
-    use WithFileUploads, WithPagination;
+    use WithFileUploads;
 
     // @ Main
     public $pages = [
@@ -258,7 +257,7 @@ class SingleCompany extends Component {
             $this->teachers = User::where('center_id', $this->company->center_id)->where('name', 'LIKE', '%' . $this->teacher_filter . '%')->where('role_id', $teacherRole->id)->get();
         }
 
-        $this->employees = CompanyEmployee::where('company_id', $this->company->id)->whereRelation('user', 'name', 'like', '%' . $this->employee_filter . '%')->paginate(10);
+        $this->employees = CompanyEmployee::where('company_id', $this->company->id)->whereRelation('user', 'name', 'like', '%' . $this->employee_filter . '%')->get();
 
         return view('livewire.sections.authorized.teacher.single-company');
     }
