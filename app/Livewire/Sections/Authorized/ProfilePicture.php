@@ -23,7 +23,7 @@ class ProfilePicture extends Component {
     
             toastr()->success("¡Tu foto de perfil ha sido actualizada!", '¡Éxito!');
         } catch (\Throwable $th) {
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
 

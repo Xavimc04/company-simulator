@@ -30,14 +30,14 @@ class LoginForm extends Component {
             if(Auth::user()->status != 'active') {
                 Auth::logout(); 
 
-                return toastr()->error('credentials', 'El usuario está deshabilitado o pendiente', '¡Vaya!');
+                return toastr()->error('credentials', 'El usuario está deshabilitado o pendiente');
             }
 
             if(Auth::user()->center_id != null) {
                 if(Auth::user()->center->status != 'active') {
                     Auth::logout(); 
 
-                    return toastr()->error('credentials', 'El centro está deshabilitado o pendiente', '¡Vaya!');
+                    return toastr()->error('credentials', 'El centro está deshabilitado o pendiente');
                 }
             }
 

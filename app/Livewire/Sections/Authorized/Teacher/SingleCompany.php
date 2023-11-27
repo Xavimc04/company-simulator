@@ -61,7 +61,7 @@ class SingleCompany extends Component {
             $this->company->save();
             toastr()->success('Los datos se han guardado correctamente', '¡Éxito!', '¡Éxito!');
         } catch (\Throwable $th) {
-            toastr()->error('¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.', '¡Vaya!');
+            toastr()->error('¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.');
         }
     }
 
@@ -77,7 +77,7 @@ class SingleCompany extends Component {
     
             toastr()->success("¡El logo de la empresa ha sido actualizado!", '¡Éxito!');
         } catch (\Throwable $th) { 
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
 
@@ -100,7 +100,7 @@ class SingleCompany extends Component {
 
             if($isTeacher) {
                 $isTeacher->delete(); 
-                toastr()->error("El usuario ya no es docente de la empresa.", '¡Vaya!');
+                toastr()->error("El usuario ya no es docente de la empresa.");
             } else {
                 $teacher = new CompanyTeacher();
                 $teacher->company_id = $this->company->id;
@@ -110,7 +110,7 @@ class SingleCompany extends Component {
             }
         } catch(\Throwable $th) {
             throw $th; 
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
 
@@ -154,7 +154,7 @@ class SingleCompany extends Component {
 
             if($question) {
                 $question->delete(); 
-                toastr()->error("La pregunta ha sido eliminada.", '¡Vaya!');
+                toastr()->error("La pregunta ha sido eliminada.");
             } else {
                 $question = new CompanyMarket();
                 $question->company_id = $this->company->id;
@@ -163,7 +163,7 @@ class SingleCompany extends Component {
                 toastr()->success("La pregunta ha sido añadida.", '¡Éxito!');
             }
         } catch(\Throwable $th) { 
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
 
@@ -224,7 +224,7 @@ class SingleCompany extends Component {
                 toastr()->success("El trabajador ha sido actualizado.", '¡Éxito!');
                 $this->handleEmployeeModal();
             } else {
-                toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+                toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
             }
 
             return;
@@ -232,7 +232,7 @@ class SingleCompany extends Component {
 
         try {
             if(CompanyEmployee::where('company_id', $this->company->id)->where('user_id', $this->employee_id)->first()) {
-                toastr()->error("El trabajador ya está añadido.", '¡Vaya!');
+                toastr()->error("El trabajador ya está añadido.");
                 return;
             }
 
@@ -243,11 +243,11 @@ class SingleCompany extends Component {
                 'boss' => $this->employee_boss
             ]);
 
-            toastr()->success("El trabajador ha sido añadido.", '¡Vaya!');
+            toastr()->success("El trabajador ha sido añadido.");
             $this->handleEmployeeModal();
         } catch(\Throwable $th) { 
             throw $th;
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
 
@@ -271,7 +271,7 @@ class SingleCompany extends Component {
 
             if($isWholesaler) {
                 $isWholesaler->delete(); 
-                toastr()->error("El mayorista ya no está asignado a la empresa.", '¡Vaya!');
+                toastr()->error("El mayorista ya no está asignado a la empresa.");
             } else {
                 $wholesaler = new CompanyWholesaler();
                 $wholesaler->company_id = $this->company->id;
@@ -281,7 +281,7 @@ class SingleCompany extends Component {
             }
         } catch(\Throwable $th) {
             throw $th;
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
         }
     }
 

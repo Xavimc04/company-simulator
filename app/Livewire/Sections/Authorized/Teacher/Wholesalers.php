@@ -128,10 +128,10 @@ class Wholesalers extends Component {
                         $this->restoreParams();
                         $this->modal = false;
                     } else {
-                        toastr()->error("Ha ocurrido un error al intentar actualizar el mayorista {$wholesaler->name}.", '¡Vaya!');
+                        toastr()->error("Ha ocurrido un error al intentar actualizar el mayorista {$wholesaler->name}.");
                     }
                 } else {
-                    toastr()->error("Ha ocurrido un error al intentar actualizar el mayorista {$wholesaler->name}.", '¡Vaya!');
+                    toastr()->error("Ha ocurrido un error al intentar actualizar el mayorista {$wholesaler->name}.");
                 }
 
                 return; 
@@ -157,10 +157,10 @@ class Wholesalers extends Component {
                 $this->restoreParams();
                 $this->modal = false;
             } else {
-                toastr()->error("Ha ocurrido un error al intentar crear el mayorista {$wholesaler->name}.", '¡Vaya!');
+                toastr()->error("Ha ocurrido un error al intentar crear el mayorista {$wholesaler->name}.");
             }
         } catch (\Throwable $th) { 
-            toastr()->error("Ha ocurrido un error al intentar crear el mayorista {$wholesaler->name}.", '¡Vaya!');
+            toastr()->error("Ha ocurrido un error al intentar crear el mayorista {$wholesaler->name}.");
         }
     }
 

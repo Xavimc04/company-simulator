@@ -61,7 +61,7 @@ class Centers extends Component {
 
     public function confirmInvite() {
         if(!$this->email && strlen($this->email) <= 0) {
-            toastr()->error("La dirección de correo es inválida", '¡Vaya!');
+            toastr()->error("La dirección de correo es inválida");
             return; 
         } 
 
@@ -79,7 +79,7 @@ class Centers extends Component {
             toastr()->success("Se ha enviado un correo electrónico con el código de verificación", '¡Éxito!');
             return;
         } else {
-            toastr()->error("Ha ocurrido un error al enviar el correo electrónico", '¡Vaya!');
+            toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
             return; 
         }
     }

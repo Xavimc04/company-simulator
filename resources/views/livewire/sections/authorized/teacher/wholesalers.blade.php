@@ -61,7 +61,7 @@
                             {{ $wholesaler['name'] }}
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
-                            0
+                            {{ $wholesaler->companyWholesalers->count() }}
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $wholesaler['transport'] }}
