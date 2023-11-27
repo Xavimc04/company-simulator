@@ -39,6 +39,9 @@
                     <th scope="col" class="px-6 py-3">
                         Fecha de alta
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Empresas
+                    </th>
                     <th scope="col" class="px-6 py-3" />
                 </tr> 
             </thead>
@@ -73,6 +76,15 @@
                         </td>
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $user['created_at'] }}
+                        </td>
+                        <td class="px-6 py-4 text-ellipsis truncate"> 
+                            @if ($user->role && $user->role->name != 'Profesor')
+                                @if (count($user->companies) > 0)
+                                    <span class="text-blue-500 lowercase bg-blue-100 px-2 py-1 rounded border border-blue-500">{{ count($user->companies) }} empresas</span>
+                                @else
+                                    <span class="text-orange-500 lowercase bg-orange-100 px-2 py-1 rounded border border-orange-500">en paro</span>
+                                @endif
+                            @endif
                         </td>
                         <td class="px-6 py-4 gap-5 flex items-center justify-end">
                             @if ($user->status == 'pending')

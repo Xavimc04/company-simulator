@@ -13,7 +13,7 @@
         @endif
     </section>
 
-    {{-- @ User displaying --}}
+    {{-- @ Invites displaying --}}
     <div class="relative overflow-x-auto mt-10">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">

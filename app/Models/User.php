@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function center() {
         return $this->belongsTo(Center::class, 'center_id');
     }
+
+    public function companies() {
+        return $this->hasMany(CompanyEmployee::class, 'user_id');
+    }
 }
