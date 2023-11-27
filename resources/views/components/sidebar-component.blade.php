@@ -4,6 +4,7 @@
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "person", "label" => "Gestión de usuarios", "route" => "users" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "link", "label" => "Códigos de invitación", "route" => "invites" ],
+        [ "prefix" => "teacher", "role" => "Profesor", "icon" => "point_of_sale", "label" => "Mayoristas", "route" => "wholesalers" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "captive_portal", "label" => "Empresas", "route" => "companies" ],
         // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "star", "label" => "Evaluación", "route" => "evaluacion" ],
         // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "description", "label" => "Informes", "route" => "informes" ],

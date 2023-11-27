@@ -17,4 +17,8 @@ class Center extends Model {
     public function companies() {
         return $this->hasMany(Company::class, 'center_id');
     }
+
+    public function wholesalers() {
+        return $this->hasMany(Wholesaler::class, 'center_id');
+    }
 }

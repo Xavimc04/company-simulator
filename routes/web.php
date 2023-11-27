@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function() {
         Route::view('/teacher/users', 'web.sections.authorized.teacher.users'); 
         Route::view('/teacher/companies', 'web.sections.authorized.teacher.companies'); 
         Route::view('/teacher/invites', 'web.sections.authorized.teacher.links'); 
-        Route::view('/teacher/wholesalers', 'web.sections.authorized.teacher.links'); 
+        Route::view('/teacher/wholesalers', 'web.sections.authorized.teacher.wholesalers'); 
 
         Route::get('/teacher/companies/{id}', [App\Http\Controllers\MainController::class, 'company']); 
     }); 
