@@ -15,4 +15,8 @@ class Wholesaler extends Model {
     public function center() {
         return $this->belongsTo(Center::class);
     }
+
+    public function companyWholesalers() {
+        return $this->hasMany(CompanyWholesaler::class);
+    }
 }

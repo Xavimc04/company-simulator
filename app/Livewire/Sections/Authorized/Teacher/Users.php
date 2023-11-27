@@ -27,7 +27,7 @@ class Users extends Component {
 
     public function confirmInvite() {
         if(!$this->email && strlen($this->email) <= 0) {
-            toastr()->error("La dirección de correo es inválida");
+            toastr()->error("La dirección de correo es inválida", '¡Vaya!');
             return; 
         } 
 
@@ -44,10 +44,10 @@ class Users extends Component {
 
         if($wasSend) {
             $this->inviting = false; 
-            toastr()->success("Se ha enviado un correo electrónico con el código de verificación");
+            toastr()->success("Se ha enviado un correo electrónico con el código de verificación", '¡Éxito!');
             return;
         } else {
-            toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
+            toastr()->error("Ha ocurrido un error al enviar el correo electrónico", '¡Vaya!');
             return; 
         }
     }
@@ -59,7 +59,7 @@ class Users extends Component {
             'status' => 'active'
         ]);
 
-        toastr()->success("El usuario ha sido aceptado");
+        toastr()->success("El usuario ha sido aceptado", '¡Éxito!');
     }
 
     public function delete($user_id) {

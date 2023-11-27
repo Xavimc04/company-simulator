@@ -22,6 +22,9 @@
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        CIF
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Nombre
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -48,6 +51,10 @@
 
                         <td class="px-6 py-4 text-ellipsis truncate">
                             {{ $company['id'] }}
+                        </td>
+
+                        <td class="px-6 py-4 text-ellipsis truncate">
+                            {{ $company['cif'] }}
                         </td>
 
                         <td class="px-6 py-4 text-ellipsis truncate">

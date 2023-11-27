@@ -321,6 +321,47 @@
         </div>
     </section>
 
+    {{-- @ Wholesalers --}}
+    <section 
+        x-show="page === 'Mayoristas'" 
+        x-transition
+        class="mt-10"
+    >
+        <x-text-input  
+            wireModel="wholesaler_filter" 
+            type="text" 
+            icon="search" 
+            styles="w-full"
+            placeholder="Filtrar mayoristas..." 
+        />
+
+        <div class="flex items-center gap-10 mt-3">
+            <div class="flex items-center gap-3">
+                <div class="h-[10px] bg-blue-500 w-[10px] rounded-full"></div>
+
+                Mayorista asignado
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="h-[10px] bg-gray-300 w-[10px] rounded-full"></div>
+
+                Sin asignar
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-10">
+            @foreach ($wholesalers as $wholesaler)
+                <div wire:click="toggleWholesaler('{{ $wholesaler->id }}')" class="{{ $this->isWholesalerAssigned($wholesaler->id) ? 'bg-blue-500 text-white' : 'bg-gray-100' }} px-5 py-2 flex items-center gap-3 rounded cursor-pointer">
+                    @if ($wholesaler->icon)
+                        <img class="w-[20px] rounded-full h-[20px]" src="{{ asset('storage/wholesalers/' . $wholesaler->icon) }}" />
+                    @endif
+                    
+                    {{ $wholesaler->name }}
+                </div>
+            @endforeach
+        </div>
+    </section>
+
     {{-- @ Add employee --}}
     <x-modal wire:model="employee_modal" styles="flex flex-col gap-2">
         @error('employee_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror

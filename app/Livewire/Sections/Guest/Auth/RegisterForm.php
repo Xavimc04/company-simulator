@@ -34,7 +34,7 @@ class RegisterForm extends Component {
 
         if($this->doesUserExist) {
             if(strlen($this->verification_code) <= 0) {
-                return toastr()->error("El código de validación es requerido");
+                return toastr()->error("El código de validación es requerido", '¡Vaya!');
             }
         }
 
@@ -68,7 +68,7 @@ class RegisterForm extends Component {
             $verification_code = VerificationCode::where('code', $this->verification_code)->first();
 
             if(!$verification_code) {
-                toastr()->error("El código de validación es incorrecto");
+                toastr()->error("El código de validación es incorrecto", '¡Vaya!');
                 return; 
             }
 
@@ -79,7 +79,7 @@ class RegisterForm extends Component {
             $center = Center::find($center_id);
 
             if(!$role || !$center) {
-                toastr()->error("El rol o centro que fué asignado a esta invitación ya no existe");
+                toastr()->error("El rol o centro que fué asignado a esta invitación ya no existe", '¡Vaya!');
                 return; 
             }
 

@@ -54,7 +54,7 @@ class Companies extends Component {
         ]);
 
         $this->creating = false;
-        toastr()->success('Empresa creada con éxito.');
+        toastr()->success('Empresa creada con éxito.', '¡Éxito!');
     }
 
     public function render() {

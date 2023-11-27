@@ -21,9 +21,9 @@ class ProfilePicture extends Component {
                 'profile_url' => $this->image->hashName()
             ]);
     
-            toastr()->success("¡Tu foto de perfil ha sido actualizada!");
+            toastr()->success("¡Tu foto de perfil ha sido actualizada!", '¡Éxito!');
         } catch (\Throwable $th) {
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
         }
     }
 

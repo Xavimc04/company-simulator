@@ -7,7 +7,9 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\CompanyTeacher; 
 use App\Models\Role; 
+use App\Models\Wholesaler; 
 use App\Models\CompanyMarket; 
+use App\Models\CompanyWholesaler; 
 use App\Models\CompanyEmployee; 
 
 class SingleCompany extends Component {
@@ -19,7 +21,7 @@ class SingleCompany extends Component {
     ];
 
     // @ Details section
-    public $company, $default_page = "Detalles";
+    public $company, $default_page = "Mayoristas";
     
     public $social_denomination, $name, $image, $cif, $sector, $phone, $location, $cp, $city, $contact_email, $form_level, $status; 
     
@@ -57,9 +59,9 @@ class SingleCompany extends Component {
             $this->company->form_level = $this->form_level;
             $this->company->status = $this->status;
             $this->company->save();
-            toastr()->success('Los datos se han guardado correctamente', '¡Éxito!');
+            toastr()->success('Los datos se han guardado correctamente', '¡Éxito!', '¡Éxito!');
         } catch (\Throwable $th) {
-            toastr()->error('¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.');
+            toastr()->error('¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.', '¡Vaya!');
         }
     }
 
@@ -73,9 +75,9 @@ class SingleCompany extends Component {
             $this->company->icon = $this->image->hashName();
             $this->company->save();
     
-            toastr()->success("¡El logo de la empresa ha sido actualizado!");
+            toastr()->success("¡El logo de la empresa ha sido actualizado!", '¡Éxito!');
         } catch (\Throwable $th) { 
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
         }
     }
 
@@ -98,17 +100,17 @@ class SingleCompany extends Component {
 
             if($isTeacher) {
                 $isTeacher->delete(); 
-                toastr()->error("El usuario ya no es docente de la empresa.");
+                toastr()->error("El usuario ya no es docente de la empresa.", '¡Vaya!');
             } else {
                 $teacher = new CompanyTeacher();
                 $teacher->company_id = $this->company->id;
                 $teacher->user_id = $user_id;
                 $teacher->save();
-                toastr()->success("El usuario ahora es docente de la empresa.");
+                toastr()->success("El usuario ahora es docente de la empresa.", '¡Éxito!');
             }
         } catch(\Throwable $th) {
             throw $th; 
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
         }
     }
 
@@ -152,16 +154,16 @@ class SingleCompany extends Component {
 
             if($question) {
                 $question->delete(); 
-                toastr()->error("La pregunta ha sido eliminada.");
+                toastr()->error("La pregunta ha sido eliminada.", '¡Vaya!');
             } else {
                 $question = new CompanyMarket();
                 $question->company_id = $this->company->id;
                 $question->index = $index;
                 $question->save();
-                toastr()->success("La pregunta ha sido añadida.");
+                toastr()->success("La pregunta ha sido añadida.", '¡Éxito!');
             }
         } catch(\Throwable $th) { 
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
         }
     }
 
@@ -219,10 +221,10 @@ class SingleCompany extends Component {
                 $employee->boss = $this->employee_boss;
                 $employee->save();
 
-                toastr()->success("El trabajador ha sido actualizado.");
+                toastr()->success("El trabajador ha sido actualizado.", '¡Éxito!');
                 $this->handleEmployeeModal();
             } else {
-                toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+                toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
             }
 
             return;
@@ -230,7 +232,7 @@ class SingleCompany extends Component {
 
         try {
             if(CompanyEmployee::where('company_id', $this->company->id)->where('user_id', $this->employee_id)->first()) {
-                toastr()->error("El trabajador ya está añadido.");
+                toastr()->error("El trabajador ya está añadido.", '¡Vaya!');
                 return;
             }
 
@@ -241,11 +243,45 @@ class SingleCompany extends Component {
                 'boss' => $this->employee_boss
             ]);
 
-            toastr()->success("El trabajador ha sido añadido.");
+            toastr()->success("El trabajador ha sido añadido.", '¡Vaya!');
             $this->handleEmployeeModal();
         } catch(\Throwable $th) { 
             throw $th;
-            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.");
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
+        }
+    }
+
+    // @ Wholesalers module
+    public $wholesaler_filter; 
+    public $wholesalers = []; 
+
+    public function isWholesalerAssigned($wholesaler) {
+        $isWholesaler = CompanyWholesaler::where('company_id', $this->company->id)->where('wholesaler_id', $wholesaler)->first();
+
+        if($isWholesaler) {
+            return true;
+        } 
+
+        return false; 
+    }
+
+    public function toggleWholesaler($wholesaler_id) {
+        try {
+            $isWholesaler = CompanyWholesaler::where('company_id', $this->company->id)->where('wholesaler_id', $wholesaler_id)->first();
+
+            if($isWholesaler) {
+                $isWholesaler->delete(); 
+                toastr()->error("El mayorista ya no está asignado a la empresa.", '¡Vaya!');
+            } else {
+                $wholesaler = new CompanyWholesaler();
+                $wholesaler->company_id = $this->company->id;
+                $wholesaler->wholesaler_id = $wholesaler_id;
+                $wholesaler->save();
+                toastr()->success("El mayorista ha sido asignado a la empresa.", '¡Éxito!');
+            }
+        } catch(\Throwable $th) {
+            throw $th;
+            toastr()->error("¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.", '¡Vaya!');
         }
     }
 
@@ -258,6 +294,8 @@ class SingleCompany extends Component {
         }
 
         $this->employees = CompanyEmployee::where('company_id', $this->company->id)->whereRelation('user', 'name', 'like', '%' . $this->employee_filter . '%')->get();
+
+        $this->wholesalers = Wholesaler::where('center_id', $this->company->center_id)->get(); 
 
         return view('livewire.sections.authorized.teacher.single-company');
     }
