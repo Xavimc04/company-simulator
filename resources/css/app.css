@@ -20,6 +20,10 @@ select:focus {
     outline: none !important;
 }
 
+textarea:focus {
+    outline: none !important;
+}
+
 *::-webkit-scrollbar {
     display: none;
 }
