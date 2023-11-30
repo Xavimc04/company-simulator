@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function() {
         Route::view('/admin/centers', 'web.sections.authorized.administrator.centers'); 
         Route::view('/admin/users', 'web.sections.authorized.teacher.users'); 
         Route::view('/admin/announcements', 'web.sections.authorized.administrator.announcements'); 
+        Route::view('/admin/documentation', 'web.sections.authorized.administrator.documentation'); 
     }); 
 
 

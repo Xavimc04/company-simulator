@@ -27,6 +27,7 @@
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "school", "label" => "Centros educativos", "route" => "centers" ],
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "person", "label" => "Gestión de usuarios", "route" => "users" ],
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "campaign", "label" => "Comunicados", "route" => "announcements" ],
+        [ "prefix" => "admin", "role" => "Administrador", "icon" => "folder", "label" => "Documentación", "route" => "documentation" ],
     ]
 ?>
 
