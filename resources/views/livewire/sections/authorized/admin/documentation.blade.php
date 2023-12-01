@@ -1,8 +1,13 @@
 <div 
     class="flex-1 h-screen flex" 
 >
+    {{-- @ Mobile announce --}}
+    <section class="flex md:hidden flex-1 flex items-center justify-center px-10 text-center">
+        Es necesaria una resolución más grande para poder acceder a este módulo.
+    </section>
+
     {{-- @ Folder architecture --}}
-    <aside class="overflow-y-scroll w-[300px] flex flex-col bg-white p-5 border-r">
+    <aside class="overflow-y-scroll w-[300px] hidden md:flex transition-all flex-col bg-white p-5 border-r">
         {{-- @ Header --}}
         <section class="flex flex-col gap-2">
             <h1 class="text-xl font-extrabold text-blue-500">
@@ -56,7 +61,7 @@
     </aside>
 
     {{-- @ File management --}}
-    <main class="bg-gray-50 flex-1 flex flex-col p-5">
+    <main class="bg-gray-50 flex-1 hidden md:flex transition-all flex-col p-5">
         <section class="select-none flex items-center">
             @php
                 $directories = [
