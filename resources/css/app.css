@@ -32,3 +32,92 @@ textarea:focus {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.markdown { 
+    margin-bottom: 30px; 
+}
+
+/* Estilo para los encabezados */
+.markdown h1 {
+    @apply text-4xl font-bold mb-4 text-blue-500;
+}
+
+.markdown h2 {
+    @apply text-3xl font-bold mb-3 text-blue-500 mt-10;
+}
+
+.markdown h2:first-child {
+    @apply mt-0
+}
+
+.markdown h3 {
+    @apply text-2xl font-bold mb-2 text-blue-500;
+}
+
+.markdown h4 {
+    @apply text-xl font-bold mb-2 text-blue-500;
+}
+
+.markdown h5 {
+    @apply text-lg font-bold mb-1 text-blue-500;
+}
+
+.markdown h6 {
+    @apply text-base font-bold mb-1 text-blue-500;
+}
+
+/* Estilo para los párrafos */
+.markdown p {
+    @apply mb-4;
+}
+
+/* Estilo para las listas */
+.markdown ul, .markdown ol {
+    @apply ml-6 mb-4;
+}
+
+.markdown ul li {
+    @apply list-disc;
+}
+
+.markdown ol li {
+    @apply list-decimal;
+}
+
+/* Estilo para los enlaces */
+.markdown a {
+    @apply text-blue-500 hover:underline;
+}
+
+/* Estilo para las imágenes */
+.markdown img {
+    @apply max-w-full h-auto;
+}
+
+/* Estilo para el código */
+.markdown pre {
+    @apply my-4 p-4 bg-gray-100 rounded-md overflow-x-auto;
+}
+
+.markdown code {
+    @apply text-sm font-mono bg-gray-200 my-2;
+}
+
+/* Estilo para las citas */
+.markdown blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic my-4;
+}
+
+/* Estilo para las líneas horizontales */
+.markdown hr {
+    @apply my-6 border-t-2 border-gray-300;
+}
+
+/* Estilo para las tablas */
+.markdown table {
+    @apply w-full border-collapse my-4;
+}
+
+.markdown th, .markdown td {
+    @apply border border-gray-300 py-2 px-4;
+}

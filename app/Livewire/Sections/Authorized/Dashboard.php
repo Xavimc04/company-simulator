@@ -3,11 +3,13 @@
 namespace App\Livewire\Sections\Authorized;
 use Livewire\Component; 
 use App\Models\Announcement;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithPagination;
 
 class Dashboard extends Component { 
     use WithPagination;
 
+    /* @ Announcements */
     protected $last_announcements = [], $fixed_announcements = [];
     
     public $levels = [
@@ -16,7 +18,7 @@ class Dashboard extends Component {
         2 => "Alta",
     ];
 
-    public $default_page = "Comunicados";
+    public $default_page = "Documentación";
 
     public $pages = [
         "Comunicados", "Documentación"
@@ -33,7 +35,29 @@ class Dashboard extends Component {
         }
     }
 
+    /* @ Documentation */
+    public $directory = "", $folders = [], $files = [];
+
+    public function addDirectory($string) {
+        $this->directory = $this->directory . '/' . $string;
+    }
+
+    public function setDirectory($string) {
+        if(!$string) {
+            $this->directory = "";
+            return;
+        }
+
+        if($string == 'Inicio') {
+            $this->directory = "";
+            return;
+        }
+
+        $this->directory = $string;
+    }
+
     public function render() {
+        /* @ Announcements */
         $this->last_announcements = Announcement::where("status", "published")
         ->where('fixed', 0)
         ->orderBy("updated_at", "desc") 
@@ -44,6 +68,10 @@ class Dashboard extends Component {
         ->orderBy('level', 'desc')
         ->orderBy("updated_at", "desc")
         ->get();
+
+        /* @ Documentation */
+        $this->folders = Storage::directories("documentation/" . $this->directory);
+        $this->files = Storage::files("documentation/" . $this->directory);
 
         return view('livewire.sections.authorized.dashboard');
     }

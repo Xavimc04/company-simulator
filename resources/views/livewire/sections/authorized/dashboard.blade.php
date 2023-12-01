@@ -94,4 +94,57 @@
             </div>
         </div>
     </section>
+
+    {{-- @ Documentation --}}
+    <section 
+        x-show="page === 'Documentación'" 
+        x-transition
+        class="flex-1 mt-10 flex flex-row flex-wrap justify-between gap-5"
+    >
+        <section class="select-none flex items-center w-full">
+            @php
+                $directories = [
+                    "Inicio"
+                ]; 
+
+                foreach (explode('/', $directory) as $dir) {
+                    if ($dir) {
+                        $directories[] = $dir;
+                    }
+                }
+            @endphp
+
+            @foreach ($directories as $dir)
+                <span class="cursor-pointer text-md" wire:click="setDirectory('{{ $dir }}')">
+                    {{ $dir }}
+                </span>
+
+                @if (!$loop->last)
+                    <span class="material-symbols-outlined">
+                        chevron_right
+                    </span>
+                @endif
+            @endforeach 
+        </section>
+
+        <div class="w-[300px] flex flex-col gap-5">
+            @foreach ($folders as $folder)
+                <div wire:click="addDirectory('{{ basename($folder) }}')" class="flex gap-3 items-center text-md cursor-pointer">
+                    <span class="material-symbols-outlined text-md">
+                        folder
+                    </span>
+
+                    {{ basename($folder) }}
+                </div>
+            @endforeach
+        </div>
+
+        <div class="flex-1 flex flex-col gap-5">
+            @foreach ($files as $file)
+                <x-markdown class="markdown">
+                    {{ Storage::get($file) }}
+                </x-markdown>
+            @endforeach
+        </div>
+    </section>
 </main>
