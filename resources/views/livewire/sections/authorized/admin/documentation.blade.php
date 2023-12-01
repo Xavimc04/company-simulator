@@ -149,16 +149,4 @@
             content="Confirmar" 
         />
     </x-modal>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () { 
-            const documentationContent = document.querySelector('#documentation-content');
-
-            documentationContent.addEventListener('change', function () {
-                const fileContent = documentationContent.value;
-
-                @this.set('fileContent', fileContent);
-            });
-        });
-    </script>
 </div>
