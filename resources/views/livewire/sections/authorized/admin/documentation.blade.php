@@ -1,4 +1,6 @@
-<div class="flex-1 h-screen flex">
+<div 
+    class="flex-1 h-screen flex" 
+>
     {{-- @ Folder architecture --}}
     <aside class="overflow-y-scroll w-[300px] flex flex-col bg-white p-5 border-r">
         {{-- @ Header --}}
@@ -25,7 +27,7 @@
             @endforeach
 
             @foreach ($files as $file)
-                <div wire:click="addDirectory('{{ basename($file) }}')" class="flex gap-3 items-center text-sm cursor-pointer">
+                <div wire:click="openFile('{{ basename($file) }}')" class="flex gap-3 items-center text-sm cursor-pointer">
                     <span class="material-symbols-outlined text-sm">
                         description
                     </span>
@@ -49,7 +51,7 @@
                 icon="description" 
                 styles="py-0 text-sm"
                 content="Nuevo archivo" 
-            />
+            /> 
         </section>
     </aside>
 
@@ -79,15 +81,27 @@
                     </span>
                 @endif
             @endforeach
+
+            @if ($fileView)
+                <div wire:click="saveFileContent" class="flex flex-1 justify-end">
+                    <button>Guardar</button>
+                </div>
+            @endif
         </section>
 
-        <div class="flex items-center gap-3 flex-1 flex justify-center items-center">
-            <span class="material-symbols-outlined">
-                description
-            </span>
-
-            Selecciona un archivo
-        </div>
+        <section class="flex-1 flex flex-col mt-5 relative">
+            @if (!$fileView)
+                <div class="h-full bg-gray-50 flex-1 w-full border border-gray-50 flex items-center justify-center gap-3">
+                    <span class="material-symbols-outlined">
+                        description
+                    </span>
+        
+                    Selecciona un archivo
+                </div>
+            @else 
+                <textarea wire:model.live="fileContent" class="block flex-1 w-full bg-white rounded-md border-gray-300 shadow-sm p-5 resize-none"></textarea>
+            @endif
+        </section>
     </main>
 
     {{-- @ Create folder --}}
@@ -135,4 +149,16 @@
             content="Confirmar" 
         />
     </x-modal>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () { 
+            const documentationContent = document.querySelector('#documentation-content');
+
+            documentationContent.addEventListener('change', function () {
+                const fileContent = documentationContent.value;
+
+                @this.set('fileContent', fileContent);
+            });
+        });
+    </script>
 </div>

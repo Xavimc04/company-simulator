@@ -8,7 +8,20 @@ class Documentation extends Component {
     public $directory = "", $folders = [], $files = [];
 
     public $creatingFolder, $folderName;
-    public $creatingFile, $fileName;
+    public $creatingFile, $fileName, $fileView, $fileContent;
+
+    public function openFile($name) {
+        $fileRoute = "documentation" . $this->directory . '/' . $name;
+
+        if(Storage::exists($fileRoute)) { 
+            $this->fileContent = Storage::get($fileRoute); 
+            $this->fileView = $fileRoute;  
+        }
+    }
+
+    public function saveFileContent() {
+        Storage::put($this->fileView, $this->fileContent);
+    }
 
     public function addDirectory($string) {
         $this->directory = $this->directory . '/' . $string;
