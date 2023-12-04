@@ -37,6 +37,22 @@ textarea:focus {
     margin-bottom: 30px; 
 }
 
+.clip-diagonal {
+    clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 5; 
+    background-repeat: no-repeat;
+    background-size: cover;
+}  
+
+@keyframes slide {
+    0% {
+      transform: translate(0);
+    }
+    100% {
+      transform: translate(-3840px); /* The image width */
+    }
+  }
+
 /* Estilo para los encabezados */
 .markdown h1 {
     @apply text-4xl font-bold mb-4 text-blue-500;

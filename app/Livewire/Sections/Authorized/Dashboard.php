@@ -18,7 +18,7 @@ class Dashboard extends Component {
         2 => "Alta",
     ];
 
-    public $default_page = "Documentación";
+    public $default_page = "Comunicados";
 
     public $pages = [
         "Comunicados", "Documentación"

@@ -99,7 +99,7 @@
     <section 
         x-show="page === 'Documentación'" 
         x-transition
-        class="flex-1 mt-10 flex flex-row flex-wrap justify-between gap-5"
+        class="flex-1 mt-10 flex flex-col lg:flex-row flex-wrap justify-between gap-5"
     >
         <section class="select-none flex items-center w-full">
             @php
