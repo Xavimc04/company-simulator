@@ -6,28 +6,16 @@
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "link", "label" => "Códigos de invitación", "route" => "invites" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "point_of_sale", "label" => "Mayoristas", "route" => "wholesalers" ],
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "captive_portal", "label" => "Empresas", "route" => "companies" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "star", "label" => "Evaluación", "route" => "evaluacion" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "description", "label" => "Informes", "route" => "informes" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "mail", "label" => "Correo", "route" => "correo" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "folder_open", "label" => "Documentos", "route" => "documentos" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "perm_media", "label" => "Tareas", "route" => "tareas" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "dataset", "label" => "Ejercicios", "route" => "ejercicios" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "inventory_2", "label" => "Productos", "route" => "productos" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "location_on", "label" => "Circulares", "route" => "circulares" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "local_shipping", "label" => "Pedidos", "route" => "pedidos" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "sell", "label" => "Pedidos virtuales", "route" => "pedidos-virtuales" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "attach_money", "label" => "Finanzas", "route" => "finanzas" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "vpn_lock", "label" => "Organismos oficiales", "route" => "organismos-oficiales" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "hub", "label" => "Directorio de centros", "route" => "centros" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "schedule", "label" => "Horarios", "route" => "horarios" ],
-        // [ "prefix" => "teacher", "role" => "Profesor", "icon" => "school", "label" => "Centro educativo", "route" => "centro-educativo" ],
 
-        // Administrator
+        // @ Administrator
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "school", "label" => "Centros educativos", "route" => "centers" ],
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "person", "label" => "Gestión de usuarios", "route" => "users" ],
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "campaign", "label" => "Comunicados", "route" => "announcements" ],
         [ "prefix" => "admin", "role" => "Administrador", "icon" => "folder", "label" => "Documentación", "route" => "documentation" ],
+
+        // @ Student
+        [ "prefix" => "student", "role" => "Estudiante", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
     ]
 ?>
 
@@ -45,6 +33,10 @@
     </div>
 
     <section class="flex-1 overflow-y-scroll my-5 flex flex-col px-3 gap-3">
+        @if (Auth::user()->role && Auth::user()->role->name == "Estudiante")
+            @livewire('sections.authorized.student.company-selector')
+        @endif
+
         @foreach ($elements as $element)
             @if (Auth::user()->role && Auth::user()->role->name == $element['role'])
                 <div onclick="window.location.href = '/{{ $element['prefix'] }}/{{ $element['route'] }}'" class="flex items-center gap-3 text-sm rounded px-3 py-2 group cursor-pointer hover:bg-blue-500 hover:text-white transition-all">
@@ -56,14 +48,14 @@
         @endforeach
     </section>
 
-    @if (Auth::user())
+    @if (Auth::user())  
         <div class="p-5 border-t mx-3 flex justify-between items-center gap-3 cursor-pointer">
             <p onclick="window.location.href = '/profile'" class="hover:text-blue-500 transition-all">
                 {{ Auth::user()->name }}
             </p>
 
             <span onclick="window.location.href = '/logout'" class="material-symbols-outlined hover:text-red-500 transition-all">logout</span>
-        </div>
+        </div> 
     @endif
 </aside>
 

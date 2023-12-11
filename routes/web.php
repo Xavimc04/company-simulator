@@ -40,6 +40,11 @@ Route::middleware('auth')->group(function() {
         Route::get('/teacher/companies/{id}', [App\Http\Controllers\MainController::class, 'company']); 
     }); 
 
+    // @ Student
+    Route::middleware(isStudent::class)->group(function() {
+        Route::view('/student/dashboard', 'web.sections.authorized.student.dashboard');
+    });
+
     // @ Shared
     Route::view('/profile', 'web.sections.authorized.profile'); 
 
