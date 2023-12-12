@@ -11,7 +11,7 @@
         
             @livewire('sections.guest.auth.login-form')
 
-            <small class="w-full cursor-pointer text-end text-gray-500 transition-all">¿Has olvidado tu contraseña?</small>
+            <small onclick="window.location.href = '{{ route('recover') }}'" class="w-full cursor-pointer text-end text-gray-500 transition-all">¿Has olvidado tu contraseña?</small>
         </section>
     </main>
 @endsection
