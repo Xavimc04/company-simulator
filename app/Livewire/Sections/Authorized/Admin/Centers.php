@@ -8,6 +8,9 @@ use App\Models\Center;
 use App\Models\Role; 
 use App\Models\VerificationCode; 
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\GenericEmail;
+
 class Centers extends Component {
     use WithPagination;
 
@@ -67,20 +70,27 @@ class Centers extends Component {
 
         $code = rand(100000, 999999); 
 
-        $wasSend = VerificationCode::create([
+        $createdCode = VerificationCode::create([
             'center_id' => $this->inviting,
             'role_id' => Role::where('name', 'Profesor')->first()->id,
             'code' => $code, 
             'usages' => 1
         ]);
 
-        if($wasSend) {
-            $this->inviting = false; 
-            toastr()->success("Se ha enviado un correo electrónico con el código de verificación", '¡Éxito!');
-            return;
-        } else {
-            toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
-            return; 
+        if($createdCode) {
+            $wasSend = Mail::to($this->email)->send(new GenericEmail(
+                "Código de invitación", 
+                "¡Hola! <br><br> Has sido invitado a formar parte de la plataforma de <strong>Portal Empresarial</strong>, tu código de acceso es <strong>$code</strong>.<br><br> Accede a <a href='https://portalempresarial.monlau.com'>Portal Empresarial</a> y regístrate."
+            ));
+
+            if($wasSend) {
+                $this->inviting = false; 
+                toastr()->success("Se ha enviado un correo electrónico con el código de verificación", '¡Éxito!');
+                return;
+            } else {
+                toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
+                return; 
+            }
         }
     }
 
@@ -114,8 +124,18 @@ class Centers extends Component {
             'status' => $this->status
         ]);
 
-        $this->creating = false; 
-        $this->editing = false;
+        $wasSend = Mail::to($this->email)->send(new GenericEmail(
+            "Centro registrado", 
+            "¡Hola $this->name! <br><br> Tu centro ha sido registrado en la plataforma de <strong>Portal Empresarial</strong>.<br><br> Accede a <a href='https://portalempresarial.monlau.com'>Portal Empresarial</a> y regístrate."
+        ));
+
+        if($wasSend) {
+            toastr()->success("Se ha enviado un correo electrónico con la información de acceso", '¡Éxito!');
+            $this->creating = false; 
+            $this->editing = false;
+        } else {
+            toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
+        }
     }
 
     public function render() {
