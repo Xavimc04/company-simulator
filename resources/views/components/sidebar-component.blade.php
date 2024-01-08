@@ -33,13 +33,33 @@
     </div>
 
     <section class="flex-1 overflow-y-scroll my-5 flex flex-col px-3 gap-3">
-        @if (Auth::user()->role && Auth::user()->role->name == "Estudiante")
-            @livewire('sections.authorized.student.company-selector')
+        @if (Auth::user()->role && Auth::user()->role->name == "Estudiante" && isset($company))
+            <div class="px-3 py-2 rounded-md flex items-center flex-row gap-3 text-sm cursor-pointer">
+                <span class="material-symbols-outlined text-blue-500">
+                    expand_more
+                </span>
+        
+                <div class="flex flex-col gap-1">
+                    {{ str_replace('-', ' ', $company) }}
+        
+                    <small class="text-gray-500 hover:text-blue-500 transition-all" onclick="window.location.href = '/student/select'">
+                        Cambiar de empresa
+                    </small>
+                </div>
+            </div>
         @endif
 
         @foreach ($elements as $element)
             @if (Auth::user()->role && Auth::user()->role->name == $element['role'])
-                <div onclick="window.location.href = '/{{ $element['prefix'] }}/{{ $element['route'] }}'" class="flex items-center gap-3 text-sm rounded px-3 py-2 group cursor-pointer hover:bg-blue-500 hover:text-white transition-all">
+                @php
+                    if(isset($company) && Auth::user()->role->name == "Estudiante") { 
+                        $route = "/{$element['prefix']}/$company/{$element['route']}";
+                    } else {
+                        $route = "/{$element['prefix']}/{$element['route']}";
+                    }
+                @endphp
+
+                <div onclick="window.location.href = '{{ $route }}'" class="flex items-center gap-3 text-sm rounded px-3 py-2 group cursor-pointer hover:bg-blue-500 hover:text-white transition-all">
                     <span class="material-symbols-outlined text-blue-500 group-hover:text-white transition-all">{{ $element['icon'] }}</span>
 
                     {{ $element['label'] }}
