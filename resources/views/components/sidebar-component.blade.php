@@ -18,7 +18,8 @@
 
         // @ Student
         [ "prefix" => "student", "role" => "Estudiante", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
-    ]
+        [ "prefix" => "student", "role" => "Estudiante", "icon" => "public", "label" => "Página web", "route" => "website" ],
+    ];
 ?>
 
 <nav class="flex items-center justify-end lg:hidden border-b p-4">
