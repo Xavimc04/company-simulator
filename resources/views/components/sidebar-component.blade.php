@@ -42,9 +42,9 @@
                     expand_more
                 </span>
         
-                <div class="flex flex-col gap-1">
+                <div class="flex flex-col gap-1"> 
                     @php
-                        $company = Company::find(Auth::user()->current_company)->first();
+                        $company = Company::find(Auth::user()->current_company);
 
                         if($company) {
                             $name = $company->name;
@@ -65,7 +65,7 @@
                 @php
                     if(Auth::user()->role->name == "Estudiante") { 
                         if(isset(Auth::user()->current_company)) {
-                            $user_company = Company::find(Auth::user()->current_company)->first();
+                            $user_company = Company::find(Auth::user()->current_company);
 
                             if($user_company) {
                                 $name = str_replace(' ', '-', $user_company->name);
