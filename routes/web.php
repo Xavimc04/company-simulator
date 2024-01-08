@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function() {
 
 
     // @ Teacher
-    Route::middleware(isTeacher::class)->prefix('teachers')->group(function() {
+    Route::middleware(isTeacher::class)->prefix('teacher')->group(function() {
         Route::view('/dashboard', 'web.sections.authorized.teacher.dashboard'); 
         Route::view('/users', 'web.sections.authorized.teacher.users'); 
         Route::view('/companies', 'web.sections.authorized.teacher.companies'); 

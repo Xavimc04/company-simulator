@@ -46,7 +46,7 @@ class LoginForm extends Component {
                 
                 if($role_name == 'Administrador') return redirect('/admin/dashboard');
                 elseif($role_name == 'Profesor') return redirect('/teacher/dashboard');
-                elseif($role_name == 'Estudiante') return redirect('/student/dashboard');
+                elseif($role_name == 'Estudiante') return redirect('/student/select');
                 else return redirect('/');
             }
 

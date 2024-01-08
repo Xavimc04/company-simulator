@@ -1,4 +1,6 @@
 <?php 
+    use App\Models\Company;
+
     $elements = [
         // @ Teacher
         [ "prefix" => "teacher", "role" => "Profesor", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
@@ -33,14 +35,22 @@
     </div>
 
     <section class="flex-1 overflow-y-scroll my-5 flex flex-col px-3 gap-3">
-        @if (Auth::user()->role && Auth::user()->role->name == "Estudiante" && isset($company))
+        @if (Auth::user()->role && Auth::user()->role->name == "Estudiante" && Auth::user()->current_company)
             <div class="px-3 py-2 rounded-md flex items-center flex-row gap-3 text-sm cursor-pointer">
                 <span class="material-symbols-outlined text-blue-500">
                     expand_more
                 </span>
         
                 <div class="flex flex-col gap-1">
-                    {{ str_replace('-', ' ', $company) }}
+                    @php
+                        $company = Company::find(Auth::user()->current_company)->first();
+
+                        if($company) {
+                            $name = $company->name;
+                        } else $name = "Seleccionar empresa";
+                    @endphp
+
+                    {{ $name }}
         
                     <small class="text-gray-500 hover:text-blue-500 transition-all" onclick="window.location.href = '/student/select'">
                         Cambiar de empresa
@@ -52,8 +62,16 @@
         @foreach ($elements as $element)
             @if (Auth::user()->role && Auth::user()->role->name == $element['role'])
                 @php
-                    if(isset($company) && Auth::user()->role->name == "Estudiante") { 
-                        $route = "/{$element['prefix']}/$company/{$element['route']}";
+                    if(Auth::user()->role->name == "Estudiante") { 
+                        if(isset(Auth::user()->current_company)) {
+                            $user_company = Company::find(Auth::user()->current_company)->first();
+
+                            if($user_company) {
+                                $name = str_replace(' ', '-', $user_company->name);
+
+                                $route = "/{$element['prefix']}/$name/{$element['route']}";
+                            } else $route = "/student/select";
+                        } else $route = "/student/select";
                     } else {
                         $route = "/{$element['prefix']}/{$element['route']}";
                     }
