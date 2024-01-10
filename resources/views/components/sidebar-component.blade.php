@@ -19,6 +19,8 @@
         // @ Student
         [ "prefix" => "student", "role" => "Estudiante", "icon" => "dashboard", "label" => "Panel", "route" => "dashboard" ],
         [ "prefix" => "student", "role" => "Estudiante", "icon" => "public", "label" => "Página web", "route" => "website" ],
+        [ "prefix" => "student", "role" => "Estudiante", "icon" => "inventory", "label" => "Productos", "route" => "products" ],
+        [ "prefix" => "student", "role" => "Estudiante", "icon" => "attach_money", "label" => "Ventas", "route" => "sells" ],
     ];
 ?>
 

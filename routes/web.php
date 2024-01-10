@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function() {
         Route::middleware(isCompanyEmployee::class)->prefix('student/{company}')->group(function() {
             Route::view('/dashboard', 'web.sections.authorized.student.dashboard');
             Route::view('/website', 'web.sections.authorized.student.website');
+            Route::view('/products', 'web.sections.authorized.student.sells.products');
+            Route::view('/sells', 'web.sections.authorized.student.sells.sells');
         });
     });
 
