@@ -3,7 +3,7 @@
         use App\Models\Company; 
     @endphp
 
-    <section class="flex gap-3 items-end">
+    <section class="flex gap-3 items-end flex-wrap">
         <x-labeled-input 
             styles="flex-1"
             label="Dirección de la página" 

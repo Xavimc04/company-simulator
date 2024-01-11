@@ -9,7 +9,7 @@
         class="flex flex-col items-center justify-center h-screen w-screen bg-no-repeat bg-center bg-cover"
         style="background-image: url({{ URL::to('/') }}/assets/squares-wallpaper.png)"
     >
-        <section class="w-[400px] flex flex-col gap-1">
+        <section class="w-[90%] md:w-[400px] flex flex-col gap-1">
             <h2 class="text-2xl">
                 Bienvenido, <span class="text-blue-500">{{ Auth::user()->name }}</span>
             </h2>
