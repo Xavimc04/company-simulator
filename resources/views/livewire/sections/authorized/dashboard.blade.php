@@ -99,7 +99,7 @@
     <section 
         x-show="page === 'Documentación'" 
         x-transition
-        class="flex-1 mt-10 flex flex-col lg:flex-row flex-wrap justify-between gap-5"
+        class="flex-1 mt-10 flex flex-col lg:flex-row flex-wrap justify-between gap-10"
     >
         <section class="select-none flex items-center w-full">
             @php
@@ -127,7 +127,7 @@
             @endforeach 
         </section>
 
-        <div class="w-[300px] flex flex-col gap-5">
+        <div class="w-[250px] flex flex-col gap-5 border-r">
             @foreach ($folders as $folder)
                 <div wire:click="addDirectory('{{ basename($folder) }}')" class="flex gap-3 items-center text-md cursor-pointer">
                     <span class="material-symbols-outlined text-md">

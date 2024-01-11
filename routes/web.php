@@ -15,7 +15,7 @@ Route::view('/', 'web.sections.shared.landing');
 // @ Unauthorized
 Route::middleware([Guest::class])->group(function() {
     Route::view('/login', 'web.sections.guest.auth.login')->name('login'); 
-    Route::view('/register', 'web.sections.guest.auth.register'); 
+    Route::view('/register', 'web.sections.guest.auth.register')->name('register'); 
     Route::view('/recover-password', 'web.sections.guest.auth.recover')->name('recover'); 
     
     Route::get('/recover-password/{token}', function (string $token) {

@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\VerificationCode; 
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role; 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\GenericEmail;
 
 class Users extends Component {
     use WithPagination;
@@ -44,8 +46,18 @@ class Users extends Component {
 
         if($wasSend) {
             $this->inviting = false; 
-            toastr()->success("Se ha enviado un correo electrónico con el código de verificación", '¡Éxito!');
-            return;
+
+            try {
+                $emailSend = Mail::to($this->email)->send(new GenericEmail(
+                    "Invitación al Portal Empresarial", 
+                    "Buenos días, el usuario <strong>" . Auth::user()->name . "</strong> te ha invitado a unirte al <strong>Portal Empresarial</strong>. Para ello, debes registrarte en el siguiente enlace: " . route('register') . " y utilizar el siguiente código de verificación: <strong>" . $code . "</strong>"
+                ));
+                
+                toastr()->success("Se ha enviado un correo electrónico con el código de verificación", '¡Éxito!');
+                return;
+            } catch (\Throwable $th) {
+                toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
+            }
         } else {
             toastr()->error("Ha ocurrido un error al enviar el correo electrónico");
             return; 
