@@ -150,6 +150,18 @@
             <small class="text-red-500">{{ $message }}</small>
         @enderror
 
+        <x-labeled-input 
+            label="Descripción" 
+            wireModel="description" 
+            type="text"
+            icon="description"
+            placeholder="..."
+        />
+
+        @error('description')
+            <small class="text-red-500">{{ $message }}</small>
+        @enderror
+
         <?php 
             $options = [];
 

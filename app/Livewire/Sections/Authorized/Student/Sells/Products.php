@@ -12,14 +12,14 @@ class Products extends Component {
 
     public $creating, $editing, $filter, $selected_categories = [], $filter_categories_ids = [];
     
-    public $creating_category, $category_name, $label, $price, $reference, $category, $image, $status = 'active'; 
+    public $creating_category, $category_name, $label, $price, $reference, $category, $image, $status = 'active', $description; 
 
     protected $categories = []; 
 
     public function openRegister() {
         $this->creating = true;
         $this->editing = false; 
-        $this->reset(['category', 'price', 'label', 'reference', 'image', 'status']);
+        $this->reset(['category', 'price', 'label', 'reference', 'image', 'status', 'description']);
     }
 
     public function edit($id) {
@@ -33,6 +33,7 @@ class Products extends Component {
         $this->label = $product->label;
         $this->reference = $product->reference;
         $this->status = $product->status;
+        $this->description = $product->description;
     }
 
     public function storeProduct() {
@@ -40,7 +41,8 @@ class Products extends Component {
             'category' => 'required|integer|exists:product_categories,id',
             'price' => 'required|numeric|min:1',
             'reference' => 'required|string|min:3',
-            'label' => 'required|string|min:3|max:40'
+            'label' => 'required|string|min:3|max:40',
+            'description' => 'nullable|string|min:3|max:255',
         ], [
             'category.required' => 'La categoría es requerida.',
             'category.integer' => 'La categoría debe ser un número entero.',
@@ -55,7 +57,10 @@ class Products extends Component {
             'label.required' => 'El nombre del producto es requerido.',
             'label.string' => 'El nombre del producto debe ser un texto.',
             'label.min' => 'El nombre del producto debe tener mínimo 3 caracteres.',
-            'label.max' => 'El nombre del producto debe tener máximo 40 caracteres.'
+            'label.max' => 'El nombre del producto debe tener máximo 40 caracteres.',
+            'description.string' => 'La descripción del producto debe ser un texto.',
+            'description.min' => 'La descripción del producto debe tener mínimo 3 caracteres.',
+            'description.max' => 'La descripción del producto debe tener máximo 255 caracteres.'
         ]);
 
         try {
@@ -71,7 +76,8 @@ class Products extends Component {
                     'label' => $this->label,
                     'price' => $this->price,
                     'reference' => $this->reference,
-                    'status' => $this->status
+                    'status' => $this->status,
+                    'description' => $this->description
                 ]);
 
                 if($this->image) {
@@ -88,7 +94,8 @@ class Products extends Component {
                     'price' => $this->price,
                     'reference' => $this->reference,
                     'company_id' => auth()->user()->current_company,
-                    'status' => $this->status
+                    'status' => $this->status,
+                    'description' => $this->description
                 ]);
 
                 if($this->image) {
@@ -102,7 +109,7 @@ class Products extends Component {
 
             $this->creating = false;
             $this->editing = false;
-            $this->reset(['category', 'price', 'label', 'reference', 'image', 'status']); 
+            $this->reset(['category', 'price', 'label', 'reference', 'image', 'status', 'description']); 
         } catch (\Throwable $th) {
             toastr()->error('¡Ha ocurrido un error al crear el producto!');
         }
