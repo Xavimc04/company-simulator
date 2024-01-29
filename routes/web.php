@@ -6,7 +6,8 @@ use App\Http\Middleware\CanRegister;
 use App\Http\Middleware\isTeacher; 
 use App\Http\Middleware\isStudent; 
 use App\Http\Middleware\isAdministrator; 
-use App\Http\Middleware\isCompanyEmployee; 
+use App\Http\Middleware\isCompanyEmployee;
+use App\Http\Middleware\doesCompanyExist; 
 use App\Http\Middleware\Authorized; 
 
 // @ Shared
@@ -65,5 +66,13 @@ Route::middleware('auth')->group(function() {
         Auth::logout(); 
 
         return redirect('/login'); 
+    });
+
+    // @ Market
+    Route::view('/market', 'web.sections.authorized.market');
+
+    Route::middleware(doesCompanyExist::class)->prefix('market/company/{company}')->group(function($company) {
+        Route::view('/', 'web.sections.authorized.market.company', ['company' => 'company']);
+        Route::view('/product/{product}', 'web.sections.authorized.market');
     });
 });
