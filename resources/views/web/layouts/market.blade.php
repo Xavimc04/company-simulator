@@ -17,6 +17,8 @@
             <p>
                 Bienvenido, <span onclick="window.location.href = '/profile'" class="text-blue-500 cursor-pointer select-none hover:text-blue-700">{{ auth()->user()->name }}</span>
             </p>
+
+            @livewire('sections.authorized.market.navigator-cart-counter')
         </nav>
 
         @yield('market')
