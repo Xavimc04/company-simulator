@@ -115,6 +115,50 @@
     </section>
     
     <section class="flex-1 flex flex-col gap-5">
+        @if ($selected_product)
+            <div class="bg-white shadow-sm rounded-md flex-wrap p-5 flex items-center gap-10">
+                @if ($selected_product->image)
+                    <img class="max-w-[100px] rounded-sm h-[100px]" src="{{ asset('storage/companies/' . $selected_product['company_id'] . '/products/' . $selected_product['image']) }}" />
+                @endif
+
+                <section class="flex-1 {{ $selected_product->image ? "px-10 border-l" : null }}">
+                    <h2 class="text-2xl text-blue-500 font-extrabold">
+                        {{ $selected_product->label }}
+                    </h2>
+        
+                    <p class="text-sm text-gray-400">
+                        {{ $selected_product->category->label }}
+                    </p>
+    
+                    @if ($selected_product->description)
+                        <p class="mt-5">
+                            {{ $selected_product->description }}
+                        </p>
+                    @endif
+                </section>
+
+                <section class="w-full flex items-center justify-end gap-5">
+                    <div class="flex items-center gap-4 flex-1">
+                        <span wire:click.defer="$set('selected_counter', {{ $selected_counter > 1 ? $selected_counter - 1 : $selected_counter }})" class="material-symbols-outlined border rounded-full p-2 text-sm px-2.5 select-none cursor-pointer">
+                            remove
+                        </span>
+
+                        {{ $selected_counter }}
+
+                        <span wire:click.prevent="$set('selected_counter', {{ $selected_counter + 1 }})" class="material-symbols-outlined border rounded-full p-2 text-sm px-2.5 select-none cursor-pointer">
+                            add
+                        </span>
+                    </div>
+
+                    <p class="text-2xl font-bold text-blue-500">
+                        {{ $selected_product->price * $selected_counter }} €
+                    </p>
+                    
+                    <x-button wireClick="addToCart" styles="justify-center" icon="shopping_cart" content="Añadir a la cesta" />
+                </section>
+            </div>
+        @endif
+
         <div class="flex gap-5">
             <x-text-input  
                 wireModel="filter" 
@@ -142,7 +186,7 @@
 
         <div style="display: block; columns: 17rem; gap: 1rem">
             @foreach ($this->products as $product)
-                <div onclick="window.location.href = '/market/company/{{ str_replace(' ', '-', $product->company->name) }}/product/{{ str_replace(' ', '-', $product->label) }}'" class="bg-white shadow p-4 rounded-md mb-4 cursor-pointer group transition-all hover:bg-blue-500 hover:text-white" style="break-inside: avoid;">
+                <div onclick="window.location.href = '/market/company/{{ str_replace(' ', '-', $product->company->name) }}?product={{ str_replace(' ', '-', $product->label) }}'" class="bg-white shadow p-4 rounded-md mb-4 cursor-pointer group transition-all hover:bg-blue-500 hover:text-white" style="break-inside: avoid;">
                     <section class="flex items-center justify-between">
                         <p class="text-xl">
                             {{ $product->label }}

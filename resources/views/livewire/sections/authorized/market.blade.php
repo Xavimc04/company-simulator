@@ -35,7 +35,7 @@
     <div class="flex-1">
         <div style="display: block; columns: 17rem; gap: 1rem">
             @foreach ($this->products as $product)
-                <div onclick="window.location.href = '/market/company/{{ str_replace(' ', '-', $product->company->name) }}/product/{{ str_replace(' ', '-', $product->label) }}'" class="bg-white shadow p-4 rounded-md mb-4 cursor-pointer group transition-all hover:bg-blue-500 hover:text-white" style="break-inside: avoid;">
+                <div onclick="window.location.href = '/market/company/{{ str_replace(' ', '-', $product->company->name) }}?product={{ str_replace(' ', '-', $product->label) }}'" class="bg-white shadow p-4 rounded-md mb-4 cursor-pointer group transition-all hover:bg-blue-500 hover:text-white" style="break-inside: avoid;">
                     <section class="flex items-center justify-between">
                         <p class="text-xl">
                             {{ $product->label }}
