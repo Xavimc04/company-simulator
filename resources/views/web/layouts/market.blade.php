@@ -3,7 +3,7 @@
 @section('content')
     <main class="bg-gray-100 w-screen h-screen flex flex-col">
         <nav class="bg-white p-5 flex flex-wrap shadow-sm items-center gap-4"> 
-            <h1 class="font-extrabold leading-none tracking-tight text-black border-r pr-5">
+            <h1 onclick="window.location.href = '/market'" class="font-extrabold leading-none tracking-tight text-black border-r pr-5 cursor-pointer select-none">
                 Monlau
                 
                 <span class="underline underline-offset-2 decoration-4 decoration-blue-400">Market</span>

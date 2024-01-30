@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function() {
 
     // @ Market
     Route::view('/market', 'web.sections.authorized.market');
+    Route::view('/market/cart', 'web.sections.authorized.market.cart');
 
     Route::middleware(doesCompanyExist::class)->prefix('market/company/{company}')->group(function($company) {
         Route::get('/', [App\Http\Controllers\MainController::class, 'marketCompany']);

@@ -1,4 +1,4 @@
-<div class="flex-1 border-t flex gap-5 p-5 overflow-y-scroll">
+<div class="flex-1 border-t flex flex-col lg:flex-row gap-10 lg:gap-5 p-5 overflow-y-scroll">
     <section class="flex-1">
         <div class="h-1/2 relative group transition-all">
             <iframe src="{{ $company->website }}" class="w-full flex-1 h-full border rounded-md"></iframe>
@@ -114,7 +114,7 @@
         </div>
     </section>
     
-    <section class="flex-1 flex flex-col gap-5">
+    <section class="flex-1 flex flex-col gap-5 order-first lg:order-last">
         @if ($selected_product)
             <div class="bg-white shadow-sm rounded-md flex-wrap p-5 flex items-center gap-10">
                 @if ($selected_product->image)
