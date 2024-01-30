@@ -117,7 +117,7 @@
     <section class="flex-1 flex flex-col gap-5">
         <div class="flex gap-5">
             <x-text-input  
-                wireModel="product_filter" 
+                wireModel="filter" 
                 type="text" 
                 icon="search" 
                 styles="text-sm flex-1 border-gray-400 text-gray-400"
@@ -134,14 +134,14 @@
             ?>
 
             <x-selector 
-                wireModel="sector"  
+                wireModel="category"  
                 styles="text-sm border-gray-400 text-gray-400 px-5 appearance-none"
                 :options="$options"
             />
         </div>
 
         <div style="display: block; columns: 17rem; gap: 1rem">
-            @foreach ($company->products as $product)
+            @foreach ($this->products as $product)
                 <div onclick="window.location.href = '/market/company/{{ str_replace(' ', '-', $product->company->name) }}/product/{{ str_replace(' ', '-', $product->label) }}'" class="bg-white shadow p-4 rounded-md mb-4 cursor-pointer group transition-all hover:bg-blue-500 hover:text-white" style="break-inside: avoid;">
                     <section class="flex items-center justify-between">
                         <p class="text-xl">
