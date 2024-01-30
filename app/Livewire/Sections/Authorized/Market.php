@@ -4,10 +4,12 @@ namespace App\Livewire\Sections\Authorized;
 use Livewire\Component;
 use App\Models\Product; 
 use Livewire\WithPagination;
+use Livewire\Attributes\Url;
 
 class Market extends Component {
     use WithPagination;
 
+    #[Url] 
     public $product_filter, $sector;
 
     public $marketQuestions = [
