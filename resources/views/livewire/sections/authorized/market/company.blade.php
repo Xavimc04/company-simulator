@@ -118,10 +118,10 @@
         @if ($selected_product)
             <div class="bg-white shadow-sm rounded-md flex-wrap p-5 flex items-center gap-10">
                 @if ($selected_product->image)
-                    <img class="max-w-[100px] rounded-sm h-[100px]" src="{{ asset('storage/companies/' . $selected_product['company_id'] . '/products/' . $selected_product['image']) }}" />
+                    <img class="sm:max-w-[100px] rounded-sm sm:h-[100px]" src="{{ asset('storage/companies/' . $selected_product['company_id'] . '/products/' . $selected_product['image']) }}" />
                 @endif
 
-                <section class="flex-1 {{ $selected_product->image ? "px-10 border-l" : null }}">
+                <section class="flex-1 {{ $selected_product->image ? "md:px-10 md:border-l" : null }}">
                     <h2 class="text-2xl text-blue-500 font-extrabold">
                         {{ $selected_product->label }}
                     </h2>
@@ -137,7 +137,7 @@
                     @endif
                 </section>
 
-                <section class="w-full flex items-center justify-end gap-5">
+                <section class="w-full flex flex-wrap items-center justify-end gap-5">
                     <div class="flex items-center gap-4 flex-1">
                         <span wire:click.defer="$set('selected_counter', {{ $selected_counter > 1 ? $selected_counter - 1 : $selected_counter }})" class="material-symbols-outlined border rounded-full p-2 text-sm px-2.5 select-none cursor-pointer">
                             remove
@@ -154,12 +154,12 @@
                         {{ $selected_product->price * $selected_counter }} €
                     </p>
                     
-                    <x-button wireClick="addToCart" styles="justify-center" icon="shopping_cart" content="Añadir a la cesta" />
+                    <x-button wireClick="addToCart" styles="justify-center" styles="w-full md:w-auto" icon="shopping_cart" content="Añadir a la cesta" />
                 </section>
             </div>
         @endif
 
-        <div class="flex gap-5">
+        <div class="flex flex-wrap gap-5">
             <x-text-input  
                 wireModel="filter" 
                 type="text" 
@@ -179,7 +179,7 @@
 
             <x-selector 
                 wireModel="category"  
-                styles="text-sm border-gray-400 text-gray-400 px-5 appearance-none"
+                styles="text-sm border-gray-400 text-gray-400 md:px-5 appearance-none w-full md:w-auto"
                 :options="$options"
             />
         </div>

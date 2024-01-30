@@ -1,5 +1,5 @@
 <section class="flex-1 p-4 flex flex-wrap flex flex-col gap-7">
-    <div class="w-full flex items-center gap-4 justify-between">
+    <div class="w-full flex flex-wrap items-center gap-4 justify-between">
         <div class="w-[60%] italic text-sm">
             Encontrados {{ $this->products->count() }} resultados...
         </div>
@@ -27,7 +27,7 @@
 
         <x-selector 
             wireModel="sector"  
-            styles="text-sm w-[250px] border-gray-400 text-gray-400"
+            styles="text-sm w-full md:w-[250px] border-gray-400 text-gray-400"
             :options="$options"
         />
     </div>
