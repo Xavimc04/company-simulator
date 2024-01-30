@@ -72,7 +72,6 @@ Route::middleware('auth')->group(function() {
     Route::view('/market', 'web.sections.authorized.market');
 
     Route::middleware(doesCompanyExist::class)->prefix('market/company/{company}')->group(function($company) {
-        Route::view('/', 'web.sections.authorized.market.company', ['company' => 'company']);
-        Route::view('/product/{product}', 'web.sections.authorized.market');
+        Route::get('/', [App\Http\Controllers\MainController::class, 'marketCompany']);
     });
 });
