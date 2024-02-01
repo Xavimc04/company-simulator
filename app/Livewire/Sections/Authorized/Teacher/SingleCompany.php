@@ -186,6 +186,10 @@ class SingleCompany extends Component {
         }
     }
 
+    public function hireEmployee($identifier) {
+        CompanyEmployee::find($identifier)->delete();
+    }
+
     public function handleEmployeeModal() {
         $this->employee_editing = false; 
         $this->employee_modal = !$this->employee_modal;
