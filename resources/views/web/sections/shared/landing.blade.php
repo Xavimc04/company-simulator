@@ -36,6 +36,19 @@
             <section class="flex items-center gap-5 text-white flex-col md:flex-row mt-7 md:mt-0 w-full md:w-auto">
                 @if (Auth::check())
                     <div class="hidden md:flex items-center gap-5 select-none cursor-pointer">
+                        @php
+                            $userRole = Auth::user()->role->name;
+                            $companyUrl = "/"; 
+                
+                            if($userRole == 'Administrador') $companyUrl = '/admin/dashboard';
+                            elseif($userRole == 'Profesor') $companyUrl = '/teacher/dashboard';
+                            elseif($userRole == 'Estudiante') $companyUrl = '/student/select';
+                        @endphp
+
+                        <p onclick="window.location.href = '{{ $companyUrl }}'" class="border px-4 py-2 rounded-md hover:opacity-40 transition-all">
+                            Mi empresa
+                        </p>
+
                         <p class="opacity-0 md:opacity-100 transition-all">
                             {{ Auth::user()->name }}
                         </p>
