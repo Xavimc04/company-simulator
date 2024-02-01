@@ -33,13 +33,7 @@
                     disabled="true"
                 />
 
-                <x-labeled-input 
-                    label="Nombre de usuario"
-                    value="{{ Auth::user()->name }}" 
-                    type="text"
-                    icon="person"
-                    disabled="true"
-                />
+                @livewire('sections.authorized.profile-name')
 
                 @livewire('sections.authorized.profile-picture')
             </section>

@@ -313,6 +313,7 @@
     
                             <td class="px-6 py-4 gap-5 flex items-center justify-end">
                                 <span wire:click="editEmployee('{{ $employee['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">edit</span>
+                                <span wire:click="hireEmployee('{{ $employee['id'] }}')" class="material-symbols-outlined hover:text-blue-500 transition-all cursor-pointer">person_remove</span>
                             </td>
                         </tr>
                     @endforeach
