@@ -1,5 +1,5 @@
 @extends('web.layouts.market')
 
 @section('market')
-    Awdawd
+    @livewire('sections.authorized.market.shopping-cart')
 @endsection

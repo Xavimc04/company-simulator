@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product; 
 
 class MainController extends Controller {
-    public function company($company_id) {
-        $company = Company::find($company_id); 
+    public function company($company) {
+        $company = Company::where('name', str_replace('-', ' ', $company))->first(); 
 
         if(!$company) {
             return redirect('/teacher/companies'); 

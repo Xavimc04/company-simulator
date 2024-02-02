@@ -9,6 +9,7 @@ use App\Http\Middleware\isAdministrator;
 use App\Http\Middleware\isCompanyEmployee;
 use App\Http\Middleware\doesCompanyExist; 
 use App\Http\Middleware\Authorized; 
+use App\Http\Middleware\setCurrentCompany;
 
 // @ Shared
 Route::view('/', 'web.sections.shared.landing');
@@ -44,7 +45,18 @@ Route::middleware('auth')->group(function() {
         Route::view('/invites', 'web.sections.authorized.teacher.links'); 
         Route::view('/wholesalers', 'web.sections.authorized.teacher.wholesalers'); 
 
-        Route::get('/companies/{id}', [App\Http\Controllers\MainController::class, 'company']); 
+        Route::middleware(doesCompanyExist::class)->prefix('/companies/{company}')->group(function($company) {
+            Route::get('/', [App\Http\Controllers\MainController::class, 'company', [
+                'company' => $company
+            ]]);
+
+            Route::middleware(setCurrentCompany::class)->prefix("/view")->group(function($company) {
+                Route::view('/dashboard', 'web.sections.authorized.student.dashboard');
+                Route::view('/website', 'web.sections.authorized.student.website');
+                Route::view('/products', 'web.sections.authorized.student.sells.products');
+                Route::view('/sells', 'web.sections.authorized.student.sells.sells');
+            });
+        });
     }); 
 
     // @ Student
