@@ -5,10 +5,12 @@ use Livewire\Component;
 use App\Models\CartProduct; 
 use App\Models\Product;
 use App\Models\Company; 
+use App\Models\Order; 
+use App\Models\OrderProduct; 
 use Livewire\Attributes\Url;
 
 class ShoppingCart extends Component {
-    protected $items = [], $companies = []; 
+    public $items = [], $companies = []; 
 
     public function deleteElement($id) {
         CartProduct::where('id', $id)->delete();
@@ -30,6 +32,35 @@ class ShoppingCart extends Component {
 
         $product->amount -= 1;
         $product->save();
+    }
+
+    public function checkout() {
+        try {
+            foreach ($this->companies as $key => $value) {
+                $order = Order::create([
+                    'serial' => 'ORD' . $value->id . auth()->user()->id . time(),
+                    'user_id' => auth()->user()->id,
+                    'buyer_company_id' => auth()->user()->current_company,
+                    'seller_company_id' => $value->id
+                ]);
+
+                foreach ($this->items as $item) {
+                    if ($item->product->company_id == $value->id) {
+                        OrderProduct::create([
+                            'order_id' => $order->id,
+                            'product_id' => $item->product_id,
+                            'amount' => $item->amount
+                        ]);
+
+                        CartProduct::where('id', $item->id)->delete();
+                    }
+                }
+
+                toastr()->success("Orden procesada con éxito: " . $order->serial);
+            }
+        } catch (\Throwable $th) {
+            toastr()->error("Ocurrió un error al procesar la orden");
+        }
     }
     
     public function render() {

@@ -62,8 +62,6 @@
                         </div>
                     @endforeach
                 </section>
-
-                {{-- @ Proceed to payment --}}
             </div>
         @endforeach
     </section>
@@ -127,7 +125,11 @@
         </ul>
 
         <div class="flex items-center justify-end">
-            <x-button wireClick="completePayment" styles="justify-center mt-5" icon="credit_card" content="Completar el pago" />
+            <x-button wireClick="checkout" styles="justify-center mt-5" icon="credit_card" content="Completar el pago" />
+        </div>
+
+        <div wire:loading>
+            Procesando el pago...
         </div>
     </section>
 </div>
