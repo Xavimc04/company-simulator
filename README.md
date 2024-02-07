@@ -1,57 +1,70 @@
-# Portal Empresarial para Simulación Empresarial con Laravel, Tailwind CSS y Livewire
+# 🔋 Company simulator 🔋
 
-Este proyecto consiste en un portal empresarial construido con Laravel, Tailwind CSS y Livewire, diseñado para facilitar la simulación de entornos empresariales ficticios. Permite a diferentes centros educativos registrar alumnos y profesores, quienes pueden crear y gestionar empresas virtuales, asignando alumnos a cada una de ellas. Estos alumnos luego ingresan a un entorno de simulación empresarial, donde participan en actividades que imitan situaciones del mundo real.
+Welcome to the Company Simulator, a cutting-edge business simulation environment developed in collaboration with Monlau Group. Immerse yourself in a dynamic and realistic simulation experience that mirrors the complexities of the business world.
 
-## Contenido del Repositorio
+# Profiles 
 
-- **`app/`**: Contiene el código fuente del portal empresarial construido con Laravel.
-- **`resources/`**: Recursos como vistas y estilos, construidos con Tailwind CSS y Livewire.
-- **`database/`**: Migraciones y semillas para la base de datos.
-- **`tests/`**: Pruebas unitarias y de integración.
-- **`README.md`**: Este archivo, proporcionando información detallada sobre el proyecto.
+- Administrator view
+- Teacher view
+- Student view
 
-## Requisitos del Sistema
+# Features
 
-- **PHP y Composer**: Se requiere PHP y Composer para la ejecución del proyecto Laravel.
-- **Node.js y npm**: Necesarios para la gestión de dependencias y activos.
-- **Base de Datos**: El sistema utiliza una base de datos para almacenar información de profesores, alumnos y empresas.
+- Multicenter
+- Documentation management
+- Announcement display
+- Account invites
+- Center assignation
+- Market with product sells. 
+- Product management. 
+- Profile section. 
+- Company manager
 
-## Configuración del Entorno
+😀 Install it and explore over the +50 features!
 
-1. **Instalación de Dependencias PHP**: Ejecute `composer install` para instalar las dependencias PHP.
-2. **Instalación de Dependencias Node.js**: Ejecute `npm install` para instalar las dependencias de Node.js.
-3. **Configuración de la Base de Datos**: Configure las credenciales en el archivo `.env` para la base de datos.
-4. **Ejecución del Servidor**: Inicie el servidor con `php artisan serve`.
+# Project deployment
 
-## Funcionalidades del Portal Empresarial
+1. Clone the project
 
-### Registro y Autenticación
+```ssh
+git clone https://github.com/Xavimc04/company-simulator/
+```
 
-- **Registro de Profesores y Alumnos**: Utiliza las funcionalidades de Laravel para registrar profesores y alumnos.
-- **Autenticación Segura**: Laravel Sanctum o Passport para garantizar la autenticación segura.
+2. Open the project in your IDE
 
-### Gestión de Empresas
+3. Install composer dependencies
 
-- **Creación de Empresas**: Utiliza el sistema de controladores y modelos de Laravel.
-- **Asignación de Alumnos**: Livewire se utiliza para la asignación dinámica de alumnos a empresas.
+```ssh
+composer install
+```
 
-### Simulación Empresarial
+4. Install NPM dependencies
 
-- **Entorno Virtual**: Livewire facilita la creación de un entorno virtual interactivo.
-- **Actividades Simuladas**: Livewire se utiliza para crear actividades simuladas en tiempo real.
+```ssh
+npm install
+```
 
-### Seguimiento y Evaluación
+5. Drop **migration.sql** file into your SQL manager. 
 
-- **Seguimiento del Desempeño**: Utiliza las capacidades de Eloquent para realizar un seguimiento del desempeño de los alumnos.
-- **Retroalimentación Personalizada**: Livewire permite proporcionar retroalimentación personalizada en tiempo real.
+6. Run the project
 
-## Desarrollo y Contribuciones
+```ssh
+php artisan serve
+```
 
-- **Contribuciones Bienvenidas**: Se anima a la comunidad a contribuir al desarrollo del proyecto.
-- **Reporte de Problemas**: Informe cualquier problema a través de la sección de problemas del repositorio.
+7. Enjoy it! 🥳
 
-## Licencia
+# Developer
 
-Este proyecto está bajo la licencia [MIT](LICENSE), lo que permite el uso, copia y modificación del código de manera libre.
+Meet the mastermind behind the Company Simulator:
 
-¡Gracias por contribuir al éxito de este proyecto! ¡Esperamos que el Portal Empresarial para Simulación Empresarial sea de gran utilidad en entornos educativos!
+**Xavier Morell**
+
+- A seasoned developer with a passion for creating immersive and educational simulations.
+- Extensive expertise in crafting realistic business scenarios to enhance the user experience.
+
+Explore the virtual business landscape curated by **Xavier Morell** and Monlau Group, designed to provide valuable insights into strategic decision-making, resource management, and overall business acumen.
+
+# License
+
+This software is licensed under MIT license. Please refer to the accompanying documentation for detailed terms and conditions. Engage with the simulator responsibly and enjoy the journey of honing your business skills!
