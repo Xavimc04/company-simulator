@@ -11,7 +11,6 @@
 
             <ul class="flex gap-4 flex-1 select-none">
                 <li class="cursor-pointer hover:text-blue-500 transition-all" onclick="window.location.href = '/market'">Inicio</li>
-                <li class="cursor-pointer hover:text-blue-500 transition-all">Mi empresa</li> 
             </ul>
 
             <p>

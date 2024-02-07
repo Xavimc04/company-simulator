@@ -2,9 +2,9 @@
     use App\Models\Company; 
 @endphp
 
-<div class="flex-1 gap-7 flex overflow-y-scroll">
+<div class="flex-1 gap-7 flex flex-col items-center xl:items-start xl:flex-row overflow-y-scroll my-10 xl:my-0">
     {{-- @ Companies  --}}
-    <section class="flex flex-col gap-7 p-7 w-2/3 h-full overflow-y-scroll">
+    <section class="flex flex-col gap-7 xl:p-7 w-[90%] xl:w-full h-full xl:overflow-y-scroll">
         @foreach ($this->companies as $company)
             <div class="flex flex-col gap-5 [&:not(:first-child)]:pt-5">
                 {{-- @ Company information --}}
@@ -23,7 +23,7 @@
                             @continue
                         @endif
 
-                        <div class="flex items-center rounded h-[70px] gap-3">
+                        <div class="flex items-center flex-wrap rounded py-7 md:py-0 md:h-[70px] gap-3">
                             <div class="w-10 flex items-center justify-center">
                                 @if ($item->product->image)
                                     <img class="rounded-sm h-[30px]" src="{{ asset('storage/companies/' . $item->product['company_id'] . '/products/' . $item->product['image']) }}" />
@@ -67,7 +67,7 @@
     </section>
 
     {{-- @ Subtotal and information --}}
-    <section class="bg-white w-1/3 shadow-md p-5">
+    <section class="bg-white xl:h-full w-[90%] xl:w-1/3 shadow-md p-5">
         <h2 class="text-2xl text-blue-500 font-bold">
             Información del pago
         </h2>
