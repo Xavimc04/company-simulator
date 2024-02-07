@@ -2,6 +2,4 @@
     <span class="material-symbols-outlined text-sm text-blue-500">
         shopping_cart
     </span>
-
-    {{ $counter }}
 </div>
