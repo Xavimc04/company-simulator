@@ -47,7 +47,7 @@ class Companies extends Component {
 
         Company::create([
             'social_denomination' => $this->social_denomination,
-            'name' => $this->name,
+            'name' => str_replace(' ', '-', $this->name),
             'sector' => $this->sector,
             'form_level' => $this->form_level,
             'center_id' => Auth::user()->center_id,

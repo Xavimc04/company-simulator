@@ -48,7 +48,7 @@ class SingleCompany extends Component {
             ]); 
 
             $this->company->social_denomination = $this->social_denomination;
-            $this->company->name = $this->name; 
+            $this->company->name = str_replace(' ', '-', $this->name); 
             $this->company->cif = $this->cif;
             $this->company->sector = $this->sector;
             $this->company->phone = $this->phone;
