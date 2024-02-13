@@ -12,9 +12,9 @@
         <x-button wireClick="openCreateCategory" icon="filter_list" content="Añadir categoría" /> 
     </section>
 
-    <section class="mt-10 flex gap-10">
+    <section class="mt-10 flex flex-col lg:flex-row gap-10">
         {{-- @ Categories --}}
-        <div class="w-[300px]">
+        <div class="w-full lg:w-[300px]">
             <h1 class="text-xl font-bold">Categorías</h1>
 
             <small class="text-gray-400">
@@ -22,25 +22,31 @@
             </small>
 
             {{-- @ Display categories --}}
-            <div class="flex flex-col mt-7 border divide-y rounded-md">
-                @foreach ($this->categories as $category) 
-                    <label class="flex items-center gap-5 cursor-pointer p-5">
-                        <input type="checkbox" wire:model.live="selected_categories.{{ $category->id }}" class="accent-blue-500" /> 
+            @if (count($this->categories) > 0)
+                <div class="flex flex-col mt-7 border divide-y rounded-md">
+                    @foreach ($this->categories as $category) 
+                        <label class="flex items-center gap-5 cursor-pointer p-5">
+                            <input type="checkbox" wire:model.live="selected_categories.{{ $category->id }}" class="accent-blue-500" /> 
 
-                        <p class="flex-1">
-                            {{ $category->label }}
-                        </p>
+                            <p class="flex-1">
+                                {{ $category->label }}
+                            </p>
 
-                        <span class="text-gray-400">{{ $category->products->count() }}</span>
-                    </label> 
-                @endforeach
-            </div>
+                            <span class="text-gray-400">{{ $category->products->count() }}</span>
+                        </label> 
+                    @endforeach
+                </div>
+            @else
+                <p class="text-blue-400 text-xs mt-5">
+                    * No hay categorías registradas
+                </p>
+            @endif
         </div>
 
         {{-- @ Products --}}
         <div class="relative flex-1 overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             
