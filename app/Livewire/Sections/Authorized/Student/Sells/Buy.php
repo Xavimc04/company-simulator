@@ -22,7 +22,7 @@ class Buy extends Component {
 
     public function confirm() {
         try {
-            $this->current_order->update(['status' => 'managed']);
+            $this->current_order->update(['status' => 'processed']);
             $this->managing = null;
         } catch (\Exception $e) {
             $this->managing = null;
