@@ -102,48 +102,4 @@
             />
         </section>
     </section>
-
-    {{-- @ Counters --}}
-    <section class="w-full flex flex-col lg:flex-row items-center justify-center gap-20 mt-10">
-        <img 
-            draggable="false"
-            src="https://www.pngall.com/wp-content/uploads/5/Digital-Marketing-PNG-Transparent-HD-Photo.png"
-        />
-
-        <div class="flex items-center flex-wrap w-[90%] lg:w-[450px]">
-            <section>
-                <h2 class="text-4xl font-extrabold">¡Únete a nosotros!</h2>
-                <p class="my-4 text-lg text-gray-500">Ofrecemos una plataforma integral diseñada para emular y gestionar empresas, brindando una experiencia realista para estudiantes, profesores y entusiastas del mundo empresarial. Nuestra aplicación está diseñada para proporcionar un entorno educativo interactivo y práctico, permitiéndote explorar y aplicar conceptos empresariales de manera efectiva.</p>
-            </section>
-
-            <div class="border-r px-10 mt-10">
-                <h2 class="text-4xl font-extrabold text-blue-500">
-                    {{ Company::count() }}+
-                </h2>
-    
-                <small>Empresas ficticias</small>
-            </div>
-    
-            <div class="border-r px-10 mt-10">
-                <h2 class="text-4xl font-extrabold text-blue-500">
-                    {{ User::count() }}+
-                </h2>
-    
-                <small>Alumnos</small>
-            </div>
-    
-            <div class="px-10 mt-10">
-                <h2 class="text-4xl font-extrabold text-blue-500">
-                    {{ Center::count() }}+
-                </h2>
-    
-                <small>Centros</small>
-            </div>
-        </div> 
-    </section>
-
-    {{-- @ Footer --}}
-    <footer class="w-full border-t text-center py-5 mt-10">
-        Portal Empresarial &copy; {{ date('Y') }} - By Monlau Group
-    </footer>
 @endsection
