@@ -125,11 +125,9 @@
         </ul>
 
         <div class="flex items-center justify-end">
-            <x-button wireClick="checkout" styles="justify-center mt-5" icon="credit_card" content="Completar el pago" />
-        </div>
-
-        <div wire:loading>
-            Procesando el pago...
+            <x-button wireClick="checkout" styles="justify-center mt-5" icon="credit_card" content="Procesar a compras" />
         </div>
     </section>
+
+    @include('components.spinner')
 </div>
