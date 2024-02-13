@@ -24,4 +24,6 @@
     </button>
 
     @include('web.sections.authorized.order-items')
+    
+    @include('components.spinner')
 </td>
