@@ -10,7 +10,7 @@ class Sells extends Component {
     protected $orders = []; 
 
     public function render() {
-        $this->orders = Order::where('seller_company_id', auth()->user()->current_company)->paginate(15); 
+        $this->orders = Order::where('seller_company_id', auth()->user()->current_company)->where('status', '!=', 'pending')->paginate(15); 
         
         return view('livewire.sections.authorized.student.sells.sells');
     }
