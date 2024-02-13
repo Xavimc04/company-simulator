@@ -23,6 +23,9 @@
                 <th scope="col" class="px-6 py-3">
                     Fecha
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    
+                </th>
             </tr> 
         </thead>
 
@@ -62,6 +65,11 @@
                     <td class="py-4 text-ellipsis truncate pl-5">
                         {{ $order->created_at->format('d/m/Y') }}
                     </td>
+
+                    @livewire('sections.authorized.student.order-items', [
+                        "order" => $order, 
+                        "enableManage" => false
+                    ])
                 </tr>
             @endforeach
         </tbody>
