@@ -44,7 +44,7 @@ class SingleCompany extends Component {
         try {
             $this->validate([
                 'social_denomination' => 'required|string|max:255',
-                'name' => 'required|string|max:255'
+                'name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/u'
             ]); 
 
             $this->company->social_denomination = $this->social_denomination;

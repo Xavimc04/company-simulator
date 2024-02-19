@@ -21,8 +21,8 @@ class Companies extends Component {
     }
 
     protected $rules = [
-        'social_denomination' => 'required|string|max:255',
-        'name' => 'required|string|max:255',
+        'social_denomination' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/u',
+        'name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/u',
         'sector' => 'required|string|max:255',
         'form_level' => 'required|string|max:255',
     ];
@@ -31,8 +31,10 @@ class Companies extends Component {
         'social_denomination.required' => 'El campo nombre social es requerido.',
         'social_denomination.string' => 'El campo nombre social debe ser una cadena de caracteres.',
         'social_denomination.max' => 'El campo nombre social no debe exceder los 255 caracteres.',
+        'social_denomination.regex' => 'El campo nombre social no puede contener acentos, caracteres especiales ni guiones.',
         'name.required' => 'El campo nombre es requerido.',
         'name.string' => 'El campo nombre debe ser una cadena de caracteres.',
+        'name.regex' => 'El campo nombre no puede contener acentos, caracteres especiales ni guiones.',
         'name.max' => 'El campo nombre no debe exceder los 255 caracteres.',
         'sector.required' => 'El campo sector es requerido.',
         'sector.string' => 'El campo sector debe ser una cadena de caracteres.',
