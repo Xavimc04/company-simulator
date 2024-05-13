@@ -54,6 +54,18 @@ php artisan serve
 
 7. Enjoy it! 🥳
 
+# Generate database migrations
+
+We implement a third party library to generate laravel migrations from database connection. 
+
+Docs: https://github.com/kitloong/laravel-migrations-generator
+
+To rerun migrations from updated database use
+
+```bash
+php artisan migrate:generate
+```
+
 # Developer
 
 Meet the mastermind behind the Company Simulator:
