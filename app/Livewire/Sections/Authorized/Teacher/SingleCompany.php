@@ -41,12 +41,12 @@ class SingleCompany extends Component {
     }
 
     public function save() {
-        try {
-            $this->validate([
-                'social_denomination' => 'required|string|max:255',
-                'name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/u'
-            ]); 
+        $this->validate([
+            'social_denomination' => 'required|string',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/u'
+        ]); 
 
+        try {
             $this->company->social_denomination = $this->social_denomination;
             $this->company->name = str_replace(' ', '-', $this->name); 
             $this->company->cif = $this->cif;
@@ -59,8 +59,11 @@ class SingleCompany extends Component {
             $this->company->form_level = $this->form_level;
             $this->company->status = $this->status;
             $this->company->save();
-            toastr()->success('Los datos se han guardado correctamente', '¡Éxito!', '¡Éxito!');
+
+            toastr()->success('Los datos se han guardado correctamente', '¡Éxito!');
         } catch (\Throwable $th) {
+            \Log::error($th);
+
             toastr()->error('¡Vaya! Algo salió mal. Inténtalo de nuevo más tarde.');
         }
     }

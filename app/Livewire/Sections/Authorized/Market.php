@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Livewire\Sections\Authorized;
+
 use Livewire\Component;
 use App\Models\Product; 
+use App\Models\Company; 
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 
@@ -10,7 +12,9 @@ class Market extends Component {
     use WithPagination;
 
     #[Url] 
-    public $product_filter, $sector;
+    public $product_filter, $sector, $company;
+
+    protected $companiesList = [];
 
     public $marketQuestions = [
         [
@@ -46,7 +50,19 @@ class Market extends Component {
             });
         }
 
+        $queryBuilder->whereHas('company', function ($query) {
+            $query->where('status', 'active');
+        });
+
+        if ($this->company) {
+            $queryBuilder->where('company_id', (int) $this->company);
+        }
+
         $this->products = $queryBuilder->get();
+
+        $this->companiesList = Company::where('status', 'active')
+            ->select('id', 'name')
+            ->get();
     
         return view('livewire.sections.authorized.market');
     }
